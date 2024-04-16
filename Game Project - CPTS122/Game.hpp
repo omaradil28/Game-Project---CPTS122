@@ -35,11 +35,6 @@ private:
 
 
 Game::Game() {
-   // player.call();
-
-   // alien.call();
-
-   // platform.call();
 
     loader.loadTexture(menuTexture, "textures/cool.png");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(2000, 1300));
