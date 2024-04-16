@@ -137,6 +137,8 @@ void Game::runGame() {
     Time elapsedTime; 
 
     RenderWindow Play(VideoMode(2000, 1300), "Space Runner");
+
+
     while (Play.isOpen()) {
         Event newEvent;
         while (Play.pollEvent(newEvent)) {
