@@ -3,7 +3,7 @@
 
 int main()
 {
-    Game obj;
+    Game obj; 
     obj.run();
 
     return 0;
