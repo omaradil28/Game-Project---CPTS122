@@ -198,6 +198,7 @@
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="PA9.hpp" />
     <ClInclude Include="Platform.hpp" />
+    <ClInclude Include="MainCharacter.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Textures.hpp" />
   </ItemGroup>

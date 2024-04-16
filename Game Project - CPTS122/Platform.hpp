@@ -1,6 +1,6 @@
 #pragma once
 #include"Game.hpp"
-class Platform : public Player {
+class Platform : public Character {
 public:
     Platform();
     void call();

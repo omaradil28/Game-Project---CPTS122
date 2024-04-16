@@ -1,7 +1,7 @@
 #pragma once
 #include"Game.hpp"
 
-class Alien : public Player{
+class Alien : public Character {
 public:
 	void call();
 	void loadTexture();

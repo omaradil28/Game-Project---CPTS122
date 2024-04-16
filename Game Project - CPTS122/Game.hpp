@@ -3,7 +3,7 @@
 #include"Textures.hpp"
 #include"Menu.hpp"
 #include"Collision.hpp"
-#include"Player.hpp"
+#include"MainCharacter.hpp"
 #include"Alien.hpp"
 #include"Platform.hpp"
 
@@ -14,7 +14,7 @@ public:
     void runGame();
 
 private:
-    Player player;
+    Character player;
     Alien alien;
     Platform platform;
 
