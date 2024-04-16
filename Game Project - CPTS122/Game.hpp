@@ -6,6 +6,7 @@
 #include"MainCharacter.hpp"
 #include"Alien.hpp"
 #include"Platform.hpp"
+#include"Player.hpp"
 
 class Game {
 public:
@@ -14,9 +15,9 @@ public:
     void runGame();
 
 private:
-    Character player;
+    Player player;
     Alien alien;
-    Platform platform;
+    //Platform platform;
 
     classTexture loader;
 
@@ -33,11 +34,11 @@ private:
 
 
 Game::Game() {
-    player.call();
+   // player.call();
 
-    alien.call();
+   // alien.call();
 
-    platform.call();
+   // platform.call();
 
     loader.loadTexture(menuTexture, "textures/cool.png");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(2000, 1300));
@@ -154,24 +155,6 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
-        //Generates Platforms and resets timer
-        elapsedTime = clock.getElapsedTime();
-        if (elapsedTime.asSeconds() >= 2) {
-            platform.generatePlatform();
-            clock.restart();
-        }
-        platform.movePlatforms(0.5f); //Platform speed
-
-        // Delete platforms that are off the screen
-        auto& platforms = platform.getPlatforms();
-        platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [&](const auto& platformSprite) {
-            return platformSprite.getPosition().y > Play.getSize().y;
-            }), platforms.end());
-
-        //Draws platfroms
-        for (auto& platformSprite : platforms) {
-            Play.draw(platformSprite);
-        }
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
