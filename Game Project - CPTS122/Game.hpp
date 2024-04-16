@@ -7,6 +7,8 @@
 #include"Alien.hpp"
 #include"Platform.hpp"
 
+#define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
+
 class Game {
 public:
     Game();
@@ -40,21 +42,21 @@ Game::Game() {
 
     //Loads wallpapers
     loader.loadTexture(menuTexture, "textures/cool.png");
-    loader.setTexture(menuBackground, menuTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(menuBackground, menuTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(gameTexture, "textures/space.jpeg");
-    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(optionsTexture, "textures/options.jpeg");
-    loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(aboutTexture, "textures/about.jpeg");
-    loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(WinWidth, WinHeight));
 }
 
 //Menu function
 void Game::run() {
-    RenderWindow MENU(VideoMode(2000, 1300), "Main Menu", Style::Default);
+    RenderWindow MENU(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(MENU.getSize().x, MENU.getSize().y);
 
     while (MENU.isOpen()) {
@@ -73,8 +75,8 @@ void Game::run() {
                     break;
                 }
                 if (event.key.code == Keyboard::Return) {
-                    RenderWindow OPTIONS(VideoMode(2000, 1300), "OPTIONS");
-                    RenderWindow ABOUT(VideoMode(2000, 1300), "ABOUT");
+                    RenderWindow OPTIONS(VideoMode(WinWidth, WinHeight), "OPTIONS");
+                    RenderWindow ABOUT(VideoMode(WinWidth, WinHeight), "ABOUT");
 
                     int x = mainMenu.pressed();
                     if (x == 0) {
@@ -137,7 +139,7 @@ void Game::runGame() {
     Clock clock; 
     Time elapsedTime; 
 
-    RenderWindow Play(VideoMode(2000, 1300), "Space Runner");
+    RenderWindow Play(VideoMode(WinWidth, WinHeight), "Space Runner");
 
     while (Play.isOpen()) {
         Event newEvent;
