@@ -35,7 +35,7 @@ Menu::Menu(float width, float height) {
 
 	//Play
 	menu[0].setFont(font);
-	menu[0].setFillColor(Color::Red);
+	menu[0].setFillColor(Color::Cyan);
 	menu[0].setString("PLAY");
 	menu[0].setCharacterSize(120);
 	menu[0].setPosition(150, 100);
@@ -61,7 +61,7 @@ Menu::Menu(float width, float height) {
 	menu[3].setCharacterSize(120);
 	menu[3].setPosition(150, 1000);
 
-	selected = -1;
+	selected = 0;
 }
 
 Menu::~Menu(){}
