@@ -31,7 +31,6 @@ private:
     Texture aboutTexture;
 };
 
-
 Game::Game() {
     player.call();
 
@@ -39,6 +38,7 @@ Game::Game() {
 
     platform.call();
 
+    //Loads wallpapers
     loader.loadTexture(menuTexture, "textures/cool.png");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(2000, 1300));
 
@@ -52,7 +52,7 @@ Game::Game() {
     loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(2000, 1300));
 }
 
-
+//Menu function
 void Game::run() {
     RenderWindow MENU(VideoMode(2000, 1300), "Main Menu", Style::Default);
     Menu mainMenu(MENU.getSize().x, MENU.getSize().y);
@@ -132,12 +132,12 @@ void Game::run() {
     }
 }
 
+//Function that runs the actual game
 void Game::runGame() {
     Clock clock; 
     Time elapsedTime; 
 
     RenderWindow Play(VideoMode(2000, 1300), "Space Runner");
-
 
     while (Play.isOpen()) {
         Event newEvent;
@@ -155,15 +155,17 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
+        //Generates platforms every few seconds
         elapsedTime = clock.getElapsedTime();
         if (elapsedTime.asSeconds() >= 2) {
             platform.generatePlatform();
             clock.restart();
         }
-        platform.movePlatforms(0.5f); 
+        platform.movePlatforms(0.6f); //Platform speed
         for (auto& platformSprite : platform.getPlatforms()) {
             Play.draw(platformSprite);
         }
+
         //Figure out how to delete the platforms that are off the screen so its not as laggy.
 
         Play.draw(alien.getSprite());
@@ -172,6 +174,7 @@ void Game::runGame() {
 
         Play.display();
 
+        //Collision detection for user and alien
         if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {
             Play.close();
         }
