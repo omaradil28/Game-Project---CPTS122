@@ -7,6 +7,7 @@
 #include"Alien.hpp"
 #include"Platform.hpp"
 #include"Player.hpp"
+#include"object.hpp"
 
 class Game {
 public:
@@ -17,7 +18,7 @@ public:
 private:
     Player player;
     Alien alien;
-    //Platform platform;
+    Platform platform;
 
     classTexture loader;
 
@@ -155,6 +156,18 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
+        //Generates Platforms and resets timer
+        elapsedTime = clock.getElapsedTime();
+        if (elapsedTime.asSeconds() >= 2) {
+            platform.generatePlatform();
+            clock.restart();
+        }
+        platform.movePlatforms(0.5f); //Platform speed
+     
+        //Draws platfroms
+        for (auto& platformSprite : platform.getObjects()) {
+            Play.draw(platformSprite);
+        }
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());

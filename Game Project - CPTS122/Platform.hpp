@@ -1,56 +1,41 @@
 #pragma once
-#include"Game.hpp"
-class Platform : public Character {
+#include"object.hpp"
+
+class Platform : public Object {
 public:
     Platform();
-    void call();
-    void loadTexture();
-    void setSprite();
-    void movePlatforms(float speed);
-    void generatePlatform();
-    vector<Sprite>& getPlatforms();
-
-private:
-    Texture platTex;
-    vector<Sprite> platforms;
-    Sprite platSprite;
-    Sprite newPlat;
+    virtual void loadTexture();
+    virtual void setSprite();
+    virtual void movePlatforms(float speed);
+    virtual void generatePlatform();
 };
 
 Platform::Platform() {
-    call();
-}
-
-void Platform::call() {
-    loadTexture();
-    setSprite();
+    this->call();
 }
 
 void Platform::loadTexture() {
-    platTex.loadFromFile("textures/plat.PNG");
+    objTex.loadFromFile("textures/plat.PNG");
 }
 
 void Platform::setSprite() {
-    platSprite.setTexture(platTex);
-    platSprite.setScale(1.0, 0.5);
+    objSprite.setTexture(objTex);
+    objSprite.setScale(1.0, 0.5);
 }
 
 void Platform::movePlatforms(float speed) {
-    for (auto& platform : platforms) {
+    for (auto& platform : objects) {
         platform.move(-speed, 0.0f);
     }
 }
 
 void Platform::generatePlatform() {
-    newPlat.setTexture(platTex);
-    newPlat.setScale(1.0, 0.5);
+    newObj.setTexture(objTex);
+    newObj.setScale(1.0, 0.5);
  
-    newPlat.setPosition(2000.0f, 1100.0f);
-    platforms.push_back(newPlat);
+    newObj.setPosition(2000.0f, 1100.0f);
+    objects.push_back(newObj);
 }
 
-vector<Sprite>& Platform::getPlatforms() {
-    return platforms;
-}
 
 
