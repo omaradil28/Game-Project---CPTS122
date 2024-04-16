@@ -25,8 +25,8 @@ void Player::loadTexture() {
 
 void Player::setSprite() {
 	playerSprite.setTexture(playerTex);
-	playerSprite.setScale(0.2, 0.2);
-	playerSprite.setPosition(400.0f, 875.0f);
+	playerSprite.setScale(0.18, 0.18);
+	playerSprite.setPosition(400.0f, 895.0f);
 }
 
 void Player::movement() {
