@@ -138,7 +138,6 @@ void Game::runGame() {
 
     RenderWindow Play(VideoMode(2000, 1300), "Space Runner");
 
-
     while (Play.isOpen()) {
         Event newEvent;
         while (Play.pollEvent(newEvent)) {
@@ -155,16 +154,24 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
+        //Generates Platforms and resets timer
         elapsedTime = clock.getElapsedTime();
         if (elapsedTime.asSeconds() >= 2) {
             platform.generatePlatform();
             clock.restart();
         }
-        platform.movePlatforms(0.5f); 
-        for (auto& platformSprite : platform.getPlatforms()) {
+        platform.movePlatforms(0.5f); //Platform speed
+
+        // Delete platforms that are off the screen
+        auto& platforms = platform.getPlatforms();
+        platforms.erase(std::remove_if(platforms.begin(), platforms.end(), [&](const auto& platformSprite) {
+            return platformSprite.getPosition().y > Play.getSize().y;
+            }), platforms.end());
+
+        //Draws platfroms
+        for (auto& platformSprite : platforms) {
             Play.draw(platformSprite);
         }
-        //Figure out how to delete the platforms that are off the screen so its not as laggy.
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
