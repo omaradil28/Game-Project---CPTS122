@@ -160,7 +160,7 @@ void Game::runGame() {
             platform.generatePlatform();
             clock.restart();
         }
-        platform.movePlatforms(0.2f); 
+        platform.movePlatforms(0.5f); 
         for (auto& platformSprite : platform.getPlatforms()) {
             Play.draw(platformSprite);
         }
