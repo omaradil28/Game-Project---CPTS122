@@ -165,7 +165,7 @@ void Game::runGame() {
             clock.restart();
         }
         platform.movePlatforms(0.6f); //Platform speed
-        for (auto& platformSprite : platform.getPlatforms()) {
+        for (auto& platformSprite : platform.getObjects()) {
             Play.draw(platformSprite);
         }
 
