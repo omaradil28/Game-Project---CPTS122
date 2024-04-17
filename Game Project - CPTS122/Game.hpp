@@ -3,11 +3,12 @@
 #include"Textures.hpp"
 #include"Menu.hpp"
 #include"Collision.hpp"
-#include"MainCharacter.hpp"
+#include"Player.hpp"
 #include"Alien.hpp"
 #include"Platform.hpp"
-#include"Player.hpp"
-#include"Object.hpp"
+
+#define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
+#define WinHeight VideoMode().getDesktopMode().height
 
 class Game {
 public:
@@ -33,25 +34,30 @@ private:
     Texture aboutTexture;
 };
 
-
 Game::Game() {
+    player.call();
 
+    alien.call();
+
+    platform.call();
+
+    //Loads wallpapers
     loader.loadTexture(menuTexture, "textures/cool.png");
-    loader.setTexture(menuBackground, menuTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(menuBackground, menuTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(gameTexture, "textures/space.jpeg");
-    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(optionsTexture, "textures/options.jpeg");
-    loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(WinWidth, WinHeight));
 
     loader.loadTexture(aboutTexture, "textures/about.jpeg");
-    loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(2000, 1300));
+    loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(WinWidth, WinHeight));
 }
 
-
+//Menu function
 void Game::run() {
-    RenderWindow MENU(VideoMode(2000, 1300), "Main Menu", Style::Default);
+    RenderWindow MENU(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(MENU.getSize().x, MENU.getSize().y);
 
     while (MENU.isOpen()) {
@@ -70,8 +76,8 @@ void Game::run() {
                     break;
                 }
                 if (event.key.code == Keyboard::Return) {
-                    RenderWindow OPTIONS(VideoMode(2000, 1300), "OPTIONS");
-                    RenderWindow ABOUT(VideoMode(2000, 1300), "ABOUT");
+                    RenderWindow OPTIONS(VideoMode(WinWidth, WinHeight), "OPTIONS");
+                    RenderWindow ABOUT(VideoMode(WinWidth, WinHeight), "ABOUT");
 
                     int x = mainMenu.pressed();
                     if (x == 0) {
@@ -129,11 +135,12 @@ void Game::run() {
     }
 }
 
+//Function that runs the actual game
 void Game::runGame() {
     Clock clock; 
     Time elapsedTime; 
 
-    RenderWindow Play(VideoMode(2000, 1300), "Space Runner");
+    RenderWindow Play(VideoMode(WinWidth, WinHeight), "Space Runner");
 
     while (Play.isOpen()) {
         Event newEvent;
@@ -151,18 +158,18 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
-        //Generates Platforms and resets timer
+        //Generates platforms every few seconds
         elapsedTime = clock.getElapsedTime();
         if (elapsedTime.asSeconds() >= 2) {
             platform.generatePlatform();
             clock.restart();
         }
-        platform.movePlatforms(0.5f); //Platform speed
-     
-        //Draws platfroms
-        for (auto& platformSprite : platform.getObjects()) {
+        platform.movePlatforms(0.6f); //Platform speed
+        for (auto& platformSprite : platform.getPlatforms()) {
             Play.draw(platformSprite);
         }
+
+        //Figure out how to delete the platforms that are off the screen so its not as laggy.
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
@@ -170,6 +177,7 @@ void Game::runGame() {
 
         Play.display();
 
+        //Collision detection for user and alien
         if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {
             Play.close();
         }
