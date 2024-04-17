@@ -7,7 +7,7 @@
 #include"Alien.hpp"
 #include"Platform.hpp"
 #include"Player.hpp"
-#include"object.hpp"
+#include"Object.hpp"
 
 class Game {
 public:
