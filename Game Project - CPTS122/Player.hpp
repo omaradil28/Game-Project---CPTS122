@@ -31,6 +31,9 @@ void Player::movement() {
 		characterSprite.move(0.0f, -1.1f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
 		characterSprite.move(0.0f, 1.1f);
+
+	if (characterSprite.getPosition().y > 1205)
+		characterSprite.setPosition(characterSprite.getPosition().x, 1205);
 }
 
 void Player::loadTexture() {

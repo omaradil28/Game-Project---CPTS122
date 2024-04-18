@@ -30,36 +30,36 @@ Menu::Menu(float width, float height) {
 	title.setFont(font);
 	title.setFillColor(Color::White);
 	title.setString("Space\n  Runner");
-	title.setCharacterSize(200);
-	title.setPosition(1000, 100);
+	title.setCharacterSize(300);
+	title.setPosition(1600, 100);
 
 	//Play
 	menu[0].setFont(font);
 	menu[0].setFillColor(Color::Cyan);
 	menu[0].setString("PLAY");
-	menu[0].setCharacterSize(120);
-	menu[0].setPosition(150, 100);
+	menu[0].setCharacterSize(150);
+	menu[0].setPosition(150, 200);
 
 	//Options
 	menu[1].setFont(font);
 	menu[1].setFillColor(Color::Red);
 	menu[1].setString("CONTROLS");
-	menu[1].setCharacterSize(120);
-	menu[1].setPosition(150, 400);
+	menu[1].setCharacterSize(150);
+	menu[1].setPosition(150, 600);
 
 	//About
 	menu[2].setFont(font);
 	menu[2].setFillColor(Color::Red);
 	menu[2].setString("ABOUT");
-	menu[2].setCharacterSize(120);
-	menu[2].setPosition(150, 700);
+	menu[2].setCharacterSize(150);
+	menu[2].setPosition(150, 1000);
 
 	//Exit
 	menu[3].setFont(font);
 	menu[3].setFillColor(Color::Red);
 	menu[3].setString("EXIT");
-	menu[3].setCharacterSize(120);
-	menu[3].setPosition(150, 1000);
+	menu[3].setCharacterSize(150);
+	menu[3].setPosition(150, 1400);
 
 	selected = 0;
 }
