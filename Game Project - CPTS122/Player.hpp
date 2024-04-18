@@ -8,6 +8,8 @@ public:
 	virtual void loadTexture();
 	virtual void setSprite();
 	virtual void movement();
+
+private:
 };
 
 Player::Player() {

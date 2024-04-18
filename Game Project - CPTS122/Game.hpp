@@ -174,7 +174,7 @@ void Game::runGame() {
 
         //Generates rock every 10 seconds
         rockTime = rockClock.getElapsedTime();
-        if (rockTime.asSeconds() >= 7) {
+        if (rockTime.asSeconds() >= 2) {
             meteor.location();
             rockClock.restart();
         }
@@ -188,7 +188,6 @@ void Game::runGame() {
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
         player.movement();
-
         Play.display();
 
         //Collision detection for user and alien

@@ -25,7 +25,7 @@ void Meteor::setSprite() {
 
 void Meteor::moveMeteors(float speed) {
     for (auto& meteor : objects) {
-        meteor.move(-speed, 0.0f);
+        meteor.move(-speed, 0.1f);
     }
 }
 
