@@ -1,11 +1,13 @@
 #pragma once
-#include"Game.hpp"
+#include "Game.hpp"
+#include "Object.hpp"" 
 
 
-class Obstacle : public Platform
+class Obstacle : public Object
 {
 public:
 	Obstacle();
+
 
     void call();
     void loadTexture();
@@ -16,7 +18,7 @@ public:
     sf::vector2f getRandomPosition();
 
 private:
-    Texture ObstacleTex;
+    Texture ObstacleTex; 
     vector<Sprite> Asteroids;
     Sprite ObstacleSprite;
     Sprite newObstacle;
