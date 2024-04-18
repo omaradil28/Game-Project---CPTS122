@@ -36,10 +36,12 @@ private:
     Texture gameTexture;
     Texture optionsTexture;
     Texture aboutTexture;
+
+    Clock deleteClock;
 };
 
 Game::Game() {
-
+    srand(time(0));
     //Loads wallpapers
     loader.loadTexture(menuTexture, "textures/cool.png");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(WinWidth, WinHeight));
@@ -140,7 +142,7 @@ void Game::runGame() {
 
     Clock rockClock;
     Time rockTime;
-
+    
     RenderWindow Play(VideoMode(WinWidth, WinHeight), "Space Runner");
 
     while (Play.isOpen()) {
@@ -172,7 +174,7 @@ void Game::runGame() {
 
         //Generates rock every 10 seconds
         rockTime = rockClock.getElapsedTime();
-        if (rockTime.asSeconds() >= 2) {
+        if (rockTime.asSeconds() >= 7) {
             meteor.location();
             rockClock.restart();
         }
@@ -182,7 +184,6 @@ void Game::runGame() {
         }
 
         //Deletes objects
-        deleteObj();
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
@@ -204,6 +205,7 @@ void Game::runGame() {
 }
 
 void Game::deleteObjects() {
+   
     for (auto deleteObj = platform.getObjects().begin(); deleteObj != platform.getObjects().end(); ) {
         if (deleteObj->getPosition().x < -deleteObj->getGlobalBounds().width) {
             deleteObj = platform.getObjects().erase(deleteObj);

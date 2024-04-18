@@ -13,6 +13,7 @@ protected:
 	vector<Sprite> objects;
 	Sprite objSprite;
 	Sprite newObj;
+	Clock deleteClock;
 };
 
 void Object::call() {

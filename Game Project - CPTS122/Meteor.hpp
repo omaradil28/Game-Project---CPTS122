@@ -30,7 +30,6 @@ void Meteor::moveMeteors(float speed) {
 }
 
 void Meteor::location() {
-    srand(time(0));
     int num = 0;
     num = rand() % 3 + 1;
     if (num == 1) {
