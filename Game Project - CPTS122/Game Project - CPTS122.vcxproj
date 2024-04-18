@@ -198,6 +198,7 @@
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="Meteor.hpp" />
     <ClInclude Include="Object.hpp" />
+    <ClInclude Include="Obstacle.hpp" />
     <ClInclude Include="PA9.hpp" />
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="Character.hpp" />
