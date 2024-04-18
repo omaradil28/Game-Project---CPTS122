@@ -41,10 +41,11 @@ private:
     Font font;
     Text paused;
     Text paused2;
+
+    int restart = 0;
 };
 
 Game::Game() {
-    srand(time(0));
 
     //Loads Font
     font.loadFromFile("textures/TH3 MACHINE.ttf");
@@ -90,6 +91,7 @@ void Game::run() {
                     int x = mainMenu.pressed();
                     if (x == 0) {
                         runGame();
+                        
                     }
                     if (x == 1) {
                         while (OPTIONS.isOpen()) {
@@ -189,13 +191,13 @@ void Game::runGame() {
                 Play.draw(platformSprite);
             }
 
-            //Generates rock every 10 seconds
+            //Generates rock every 7 seconds
             rockTime = rockClock.getElapsedTime();
-            if (rockTime.asSeconds() >= 2) {
+            if (rockTime.asSeconds() >= 7) {
                 meteor.location();
                 rockClock.restart();
             }
-            meteor.moveMeteors(1.0f); //Rock speed
+            meteor.moveMeteors(2.5f); //Rock speed
             for (auto& meteorSprite : meteor.getObjects()) {
                 Play.draw(meteorSprite);
             }

@@ -11,6 +11,7 @@ public:
 };
 
 Meteor::Meteor() {
+    srand(time(0));
     this->call();
 }
 
@@ -25,7 +26,7 @@ void Meteor::setSprite() {
 
 void Meteor::moveMeteors(float speed) {
     for (auto& meteor : objects) {
-        meteor.move(-speed, 0.1f);
+        meteor.move(-speed, 0.1);
     }
 }
 
@@ -36,21 +37,21 @@ void Meteor::location() {
         newObj.setTexture(objTex);
         newObj.setScale(.1, 0.1);
 
-        newObj.setPosition(3000.0f, 800.0f);
+        newObj.setPosition(2850.0f, 700.0f);
         objects.push_back(newObj);
     }
     else if (num == 2) {
         newObj.setTexture(objTex);
         newObj.setScale(.1, 0.1);
 
-        newObj.setPosition(3000.0f, 1050.0f);
+        newObj.setPosition(2800.0f, 900.0f);
         objects.push_back(newObj);
     }
     else if (num == 3) {
         newObj.setTexture(objTex);
         newObj.setScale(.1, 0.1);
 
-        newObj.setPosition(3000.0f, 1300.0f);
+        newObj.setPosition(2800.0f, 1100.0f);
         objects.push_back(newObj);
     }
 }
