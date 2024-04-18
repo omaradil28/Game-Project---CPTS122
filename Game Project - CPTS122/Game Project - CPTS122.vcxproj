@@ -196,6 +196,7 @@
     <ClInclude Include="Contact.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Menu.hpp" />
+    <ClInclude Include="Obstacles.hpp" />
     <ClInclude Include="PA9.hpp" />
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="Player.hpp" />
