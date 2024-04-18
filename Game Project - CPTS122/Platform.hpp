@@ -33,7 +33,7 @@ void Platform::generatePlatform() {
     newObj.setTexture(objTex);
     newObj.setScale(1.0, 0.5);
  
-    newObj.setPosition(2000.0f, 1100.0f);
+    newObj.setPosition(3000.0f, 1400.0f);
     objects.push_back(newObj);
 }
 

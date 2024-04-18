@@ -21,7 +21,7 @@ void Alien::loadTexture() {
 void Alien::setSprite() {
 	characterSprite.setTexture(characterTex);
 	characterSprite.setScale(1.0, 1.0);
-	characterSprite.setPosition(-350.0f, 225.0f);
+	characterSprite.setPosition(-350.0f, 525.0f);
 }
 
 void Alien::movement() {

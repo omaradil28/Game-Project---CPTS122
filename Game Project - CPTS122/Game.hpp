@@ -6,6 +6,8 @@
 #include"Player.hpp"
 #include"Alien.hpp"
 #include"Platform.hpp"
+#include"Meteor.hpp"
+#include"object.hpp"
 
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
@@ -15,12 +17,14 @@ public:
     Game();
     void run();
     void runGame();
+    void deleteObj();
 
 private:
     Player player;
     Alien alien;
     Platform platform;
-
+    Meteor meteor;
+    
     classTexture loader;
 
     RectangleShape menuBackground;
@@ -35,11 +39,6 @@ private:
 };
 
 Game::Game() {
-    player.call();
-
-    alien.call();
-
-    platform.call();
 
     //Loads wallpapers
     loader.loadTexture(menuTexture, "textures/cool.png");
@@ -55,7 +54,6 @@ Game::Game() {
     loader.setTexture(aboutBackground, aboutTexture, sf::Vector2f(WinWidth, WinHeight));
 }
 
-//Menu function
 void Game::run() {
     RenderWindow MENU(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(MENU.getSize().x, MENU.getSize().y);
@@ -137,8 +135,11 @@ void Game::run() {
 
 //Function that runs the actual game
 void Game::runGame() {
-    Clock clock; 
-    Time elapsedTime; 
+    Clock platformClock;
+    Time platformTime;
+
+    Clock rockClock;
+    Time rockTime;
 
     RenderWindow Play(VideoMode(WinWidth, WinHeight), "Space Runner");
 
@@ -158,18 +159,30 @@ void Game::runGame() {
 
         Play.draw(gameBackground);
 
-        //Generates platforms every few seconds
-        elapsedTime = clock.getElapsedTime();
-        if (elapsedTime.asSeconds() >= 2) {
+        //Generates platforms every 2 seconds
+        platformTime = platformClock.getElapsedTime();
+        if (platformTime.asSeconds() >= 2) {
             platform.generatePlatform();
-            clock.restart();
+            platformClock.restart();
         }
         platform.movePlatforms(0.6f); //Platform speed
         for (auto& platformSprite : platform.getObjects()) {
             Play.draw(platformSprite);
         }
 
-        //Figure out how to delete the platforms that are off the screen so its not as laggy.
+        //Generates rock every 10 seconds
+        rockTime = rockClock.getElapsedTime();
+        if (rockTime.asSeconds() >= 2) {
+            meteor.location();
+            rockClock.restart();
+        }
+        meteor.moveMeteors(1.0f); //Rock speed
+        for (auto& meteorSprite : meteor.getObjects()) {
+            Play.draw(meteorSprite);
+        }
+
+        //Deletes objects
+        deleteObj();
 
         Play.draw(alien.getSprite());
         Play.draw(player.getSprite());
@@ -181,7 +194,31 @@ void Game::runGame() {
         if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {
             Play.close();
         }
+        //Collision detection for user and rock
+        for (const auto& meteorSprite : meteor.getObjects()) {
+            if (Collision::PixelPerfectTest(player.getSprite(), meteorSprite)) {
+                Play.close();
+            }
+        }
     }
 }
 
+void Game::deleteObj() {
+    for (auto deleteObj = platform.getObjects().begin(); deleteObj != platform.getObjects().end(); ) {
+        if (deleteObj->getPosition().x < -deleteObj->getGlobalBounds().width) {
+            deleteObj = platform.getObjects().erase(deleteObj);
+        }
+        else {
+            ++deleteObj;
+        }
+    }
 
+    for (auto deleteObj = meteor.getObjects().begin(); deleteObj != meteor.getObjects().end(); ) {
+        if (deleteObj->getPosition().x < -deleteObj->getGlobalBounds().width) {
+            deleteObj = meteor.getObjects().erase(deleteObj);
+        }
+        else {
+            ++deleteObj;
+        }
+    }
+}

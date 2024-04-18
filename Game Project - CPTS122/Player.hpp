@@ -1,5 +1,5 @@
 #pragma once
-#include"MainCharacter.hpp"
+#include"Character.hpp"
 #include"PA9.hpp"
 
 class Player : public Character{
@@ -17,7 +17,7 @@ Player::Player() {
 void Player::setSprite() {
 	characterSprite.setTexture(characterTex);
 	characterSprite.setScale(0.18, 0.18);
-	characterSprite.setPosition(400.0f, 895.0f);
+	characterSprite.setPosition(400.0f, 1200.0f);
 }
 
 void Player::movement() {

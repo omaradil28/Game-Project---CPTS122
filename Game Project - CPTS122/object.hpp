@@ -4,14 +4,10 @@
 class Object {
 public:
 	virtual void call();
-
-	//template<class A, class B>
-	//void eraseObjects(std::remove_if<A,B>);
-
 	virtual void loadTexture() = 0;
 	virtual void setSprite() = 0;
 	vector<Sprite>& getObjects();
-
+	Sprite& getSprite();
 protected:
 	Texture objTex;
 	vector<Sprite> objects;
@@ -26,4 +22,8 @@ void Object::call() {
 
 vector<Sprite>& Object::getObjects() {
 	return objects;
+}
+
+Sprite& Object::getSprite() {
+	return objSprite;
 }

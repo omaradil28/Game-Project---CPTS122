@@ -10,6 +10,9 @@
 #include <vector>
 #include <map>
 #include <array>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 using std::fstream;
 using std::cout;
