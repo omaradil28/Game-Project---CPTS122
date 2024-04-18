@@ -3,7 +3,7 @@
 #include "Object.hpp"" 
 
 
-class Obstacle : public Object
+class Obstacle : public Platform
 {
 public:
 	Obstacle();
