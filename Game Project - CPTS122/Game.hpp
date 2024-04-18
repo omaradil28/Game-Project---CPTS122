@@ -17,7 +17,7 @@ public:
     Game();
     void run();
     void runGame();
-    void deleteObj();
+    void deleteObjects();
 
 private:
     Player player;
@@ -203,7 +203,7 @@ void Game::runGame() {
     }
 }
 
-void Game::deleteObj() {
+void Game::deleteObjects() {
     for (auto deleteObj = platform.getObjects().begin(); deleteObj != platform.getObjects().end(); ) {
         if (deleteObj->getPosition().x < -deleteObj->getGlobalBounds().width) {
             deleteObj = platform.getObjects().erase(deleteObj);
