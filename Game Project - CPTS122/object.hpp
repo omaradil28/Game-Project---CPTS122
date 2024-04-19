@@ -8,12 +8,14 @@ public:
 	virtual void setSprite() = 0;
 	vector<Sprite>& getObjects();
 	Sprite& getSprite();
+	bool outOfBounds(float screenWidth);
 protected:
 	Texture objTex;
 	vector<Sprite> objects;
 	Sprite objSprite;
 	Sprite newObj;
 	Clock deleteClock;
+	sf::Vector2f position;
 };
 
 void Object::call() {
@@ -27,4 +29,13 @@ vector<Sprite>& Object::getObjects() {
 
 Sprite& Object::getSprite() {
 	return objSprite;
+}
+
+inline bool Object::outOfBounds(float screenWidth)
+{
+	if (position.x + objSprite.getLocalBounds().width < 0 || position.x > screenWidth)
+	{
+		return true;
+	}
+	return false;
 }

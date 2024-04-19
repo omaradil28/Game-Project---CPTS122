@@ -22,15 +22,6 @@ private:
     Sprite newObstacle;
 };
 
-/*
-* Notes:
-    - Want speed of obstacles to increase over time
-    - Obstacles come at random time or set interval?
-    - Obstacles come in at a random position from the right hand side
-    - Collision detection with obstacles
-    - If more than one type of obstacle, which type of obstacle comes at random
-*/
-
 Obstacle::Obstacle()
 {
     call();
