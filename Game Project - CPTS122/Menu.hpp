@@ -30,14 +30,14 @@ Menu::Menu(float width, float height) {
 	title.setFont(font);
 	title.setFillColor(Color::White);
 	title.setString("Space\n  Runner");
-	title.setCharacterSize(300);
-	title.setPosition(1600, 100);
+	title.setCharacterSize(400);
+	title.setPosition(1200, 100);
 
 	//Play
 	menu[0].setFont(font);
 	menu[0].setFillColor(Color::Cyan);
 	menu[0].setString("PLAY");
-	menu[0].setCharacterSize(150);
+	menu[0].setCharacterSize(200);
 	menu[0].setPosition(150, 200);
 
 	//Options

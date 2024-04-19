@@ -12,11 +12,15 @@
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
 
+IntRect rectSourceSprite(0, 0, 46, 73);
+
+int playerMove;
+
 class Game {
 public:
     Game();
     void run();
-    void runGame();
+    void runGame(RenderWindow& window);
     void deleteObjects();
 
 private:
@@ -24,7 +28,7 @@ private:
     Alien alien;
     Platform platform;
     Meteor meteor;
-    
+
     classTexture loader;
 
     RectangleShape menuBackground;
@@ -66,14 +70,17 @@ Game::Game() {
 }
 
 void Game::run() {
-    RenderWindow MENU(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
-    Menu mainMenu(MENU.getSize().x, MENU.getSize().y);
+    RenderWindow WINDOW(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
+    Menu mainMenu(WINDOW.getSize().x, WINDOW.getSize().y);
 
-    while (MENU.isOpen()) {
+    
+
+    while (WINDOW.isOpen()) {
+
         Event event;
-        while (MENU.pollEvent(event)) {
+        while (WINDOW.pollEvent(event)) {
             if (event.type == Event::Closed) {
-                MENU.close();
+                WINDOW.close();
             }
             if (event.type == Event::KeyReleased) {
                 if (event.key.code == Keyboard::Up) {
@@ -85,82 +92,95 @@ void Game::run() {
                     break;
                 }
                 if (event.key.code == Keyboard::Return) {
-                    RenderWindow OPTIONS(VideoMode(WinWidth, WinHeight), "OPTIONS");
-                    RenderWindow ABOUT(VideoMode(WinWidth, WinHeight), "ABOUT");
 
                     int x = mainMenu.pressed();
                     if (x == 0) {
-                        runGame();
-                        
+                        WINDOW.clear();
+                        runGame(WINDOW);
+
                     }
                     if (x == 1) {
-                        while (OPTIONS.isOpen()) {
+                        WINDOW.clear();
+                        WINDOW.draw(optionsBackground);
+                        WINDOW.display();
+
+                        while (true) {
                             Event newEvent;
-                            while (OPTIONS.pollEvent(newEvent)) {
+
+                            while (WINDOW.pollEvent(newEvent)) {
                                 if (newEvent.type == Event::Closed) {
-                                    OPTIONS.close();
+                                    WINDOW.close();
                                 }
+
                                 if (newEvent.type == Event::KeyPressed) {
-                                    if (newEvent.key.code == Keyboard::Escape) {
-                                        OPTIONS.close();
-                                    }
+                                    goto MENUSCREEN;
                                 }
                             }
-                            OPTIONS.clear();
-                            OPTIONS.draw(optionsBackground);
-                            ABOUT.close();
-                            OPTIONS.display();
+
                         }
+
                     }
+
                     if (x == 2) {
-                        while (ABOUT.isOpen()) {
+                        WINDOW.clear();
+                        WINDOW.draw(aboutBackground);
+                        WINDOW.display();
+
+                        while (true) {
                             Event newEvent;
-                            while (ABOUT.pollEvent(newEvent)) {
+
+                            while (WINDOW.pollEvent(newEvent)) {
                                 if (newEvent.type == Event::Closed) {
-                                    ABOUT.close();
+                                    WINDOW.close();
                                 }
+
                                 if (newEvent.type == Event::KeyPressed) {
-                                    if (newEvent.key.code == Keyboard::Escape) {
-                                        ABOUT.close();
-                                    }
+                                    goto MENUSCREEN;
                                 }
                             }
-                            OPTIONS.clear();
-                            ABOUT.clear();
-                            ABOUT.draw(aboutBackground);
-                            ABOUT.display();
+
                         }
+
                     }
+                MENUSCREEN:
+
                     if (x == 3) {
-                        MENU.close();
+                        WINDOW.close();
                         break;
                     }
+
                 }
+
             }
         }
-        MENU.clear();
-        MENU.draw(menuBackground);
-        mainMenu.draw(MENU);
-        MENU.display();
+        WINDOW.clear();
+        WINDOW.draw(menuBackground);
+        mainMenu.draw(WINDOW);
+        WINDOW.display();
     }
+
 }
 
 //Function that runs the actual game
-void Game::runGame() {
+void Game::runGame(RenderWindow& Play) {
     Clock platformClock;
     Time platformTime;
 
     Clock rockClock;
     Time rockTime;
 
+    Clock playerClock;
+
+
     bool pause = false;
 
-    RenderWindow Play(VideoMode(WinWidth, WinHeight), "Space Runner");
 
     while (Play.isOpen()) {
+
         Event newEvent;
         while (Play.pollEvent(newEvent)) {
             if (newEvent.type == Event::Closed) {
+
                 Play.close();
             }
             if (newEvent.type == Event::KeyPressed) {
@@ -180,12 +200,14 @@ void Game::runGame() {
             Play.clear();
             Play.draw(gameBackground);
 
+
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
             if (platformTime.asSeconds() >= 2) {
                 platform.generatePlatform();
                 platformClock.restart();
             }
+
             platform.movePlatforms(0.6f); //Platform speed
             for (auto& platformSprite : platform.getObjects()) {
                 Play.draw(platformSprite);
@@ -193,6 +215,7 @@ void Game::runGame() {
 
             //Generates rock every 7 seconds
             rockTime = rockClock.getElapsedTime();
+
             if (rockTime.asSeconds() >= 7) {
                 meteor.location();
                 rockClock.restart();
@@ -203,16 +226,68 @@ void Game::runGame() {
             }
 
             //Deletes objects
-
+           
+            
+            playerMove = 2;
+            player.getSprite().setTextureRect(rectSourceSprite);
             Play.draw(alien.getSprite());
             Play.draw(player.getSprite());
             player.movement();
             Play.display();
 
+
+            // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
+            if (playerClock.getElapsedTime().asSeconds() > 1.0f) {
+
+                if (playerMove == 0) {
+                    rectSourceSprite.height = 73;
+                    rectSourceSprite.top = 73;
+
+                    if (rectSourceSprite.left == 58) {
+                        rectSourceSprite.left = 0;
+                        rectSourceSprite.width = 58;
+                    }
+                    else {
+                        rectSourceSprite.left = 58;
+                        rectSourceSprite.width = 56;
+                    }
+                }
+
+                else if (playerMove == 1) {
+                    rectSourceSprite.height = 73;
+                    rectSourceSprite.top = 292;
+                    rectSourceSprite.width = 48;
+
+                    if (rectSourceSprite.left == 96) {
+                        rectSourceSprite.left = 48;
+                    }
+                    else {
+                        rectSourceSprite.left = 96;
+                    }
+                }
+                else {
+                    rectSourceSprite.top = 0;
+                    rectSourceSprite.height = 73;
+                    rectSourceSprite.width = 46;
+
+
+                    if (rectSourceSprite.left == 46) {
+                        rectSourceSprite.left = 0;
+                    }
+                    else {
+                        rectSourceSprite.left = 46;
+                    }
+                }
+            }
+
+
+
+
             //Collision detection for user and alien
             if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {
                 Play.close();
             }
+
             //Collision detection for user and rock
             for (const auto& meteorSprite : meteor.getObjects()) {
                 if (Collision::PixelPerfectTest(player.getSprite(), meteorSprite)) {
@@ -232,5 +307,5 @@ void Game::runGame() {
 }
 
 void Game::deleteObjects() {
-   
+
 }
