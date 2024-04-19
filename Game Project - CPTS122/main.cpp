@@ -3,6 +3,7 @@
 
 int main()
 {
+    srand(time(0));
     Game obj;
     obj.run();
 

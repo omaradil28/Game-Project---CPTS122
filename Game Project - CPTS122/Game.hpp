@@ -73,8 +73,6 @@ void Game::run() {
     RenderWindow WINDOW(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(WINDOW.getSize().x, WINDOW.getSize().y);
 
-    
-
     while (WINDOW.isOpen()) {
 
         Event event;

@@ -11,7 +11,6 @@ public:
 };
 
 Meteor::Meteor() {
-    srand(time(0));
     this->call();
 }
 

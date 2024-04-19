@@ -24,7 +24,7 @@ void Player::setSprite() {
 
 	characterSprite.setTexture(characterTex);
 	characterSprite.setScale(4, 4);
-	characterSprite.setPosition(400.0f, 1200.0f);
+	characterSprite.setPosition(400.0f, 1205.0f);
 }
 
 // This changes the "Mode" for playerMove. This connects to Game.hpp that deals with animation.
