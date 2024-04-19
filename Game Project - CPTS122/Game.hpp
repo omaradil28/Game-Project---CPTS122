@@ -206,7 +206,7 @@ void Game::runGame(RenderWindow& Play) {
                 platformClock.restart();
             }
 
-            platform.movePlatforms(0.6f); //Platform speed
+            platform.movePlatforms(1.0f); //Platform speed
             for (auto& platformSprite : platform.getObjects()) {
                 Play.draw(platformSprite);
             }
@@ -277,9 +277,6 @@ void Game::runGame(RenderWindow& Play) {
                     }
                 }
             }
-
-
-
 
             //Collision detection for user and alien
             if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {

@@ -31,19 +31,19 @@ void Player::setSprite() {
 void Player::movement() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
 		playerMove = 1;
-		characterSprite.move(-1.1f, 0.0f);
+		characterSprite.move(-1.5f, 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
 		playerMove = 0;
-		characterSprite.move(1.1f, 0.0f);
+		characterSprite.move(1.5f, 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
 		playerMove = 2;
-		characterSprite.move(0.0f, -1.1f);
+		characterSprite.move(0.0f, -1.5f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
 		playerMove = 2;
-		characterSprite.move(0.0f, 1.1f);
+		characterSprite.move(0.0f, 1.5f);
 	}
 
 	if (characterSprite.getPosition().y > 1205)
