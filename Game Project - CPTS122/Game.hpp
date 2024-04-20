@@ -7,7 +7,8 @@
 #include"Alien.hpp"
 #include"Platform.hpp"
 #include"Meteor.hpp"
-#include"object.hpp"
+#include"Object.hpp"
+#include"Asteroid.hpp"
 
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
@@ -28,6 +29,7 @@ private:
     Alien alien;
     Platform platform;
     Meteor meteor;
+    Asteroid asteroid;
 
     classTexture loader;
 
@@ -167,6 +169,9 @@ void Game::runGame(RenderWindow& Play) {
     Clock rockClock;
     Time rockTime;
 
+    Clock astClock;
+    Time astTime;
+
     Clock playerClock;
 
 
@@ -211,16 +216,25 @@ void Game::runGame(RenderWindow& Play) {
                 Play.draw(platformSprite);
             }
 
-            //Generates rock every 7 seconds
+            //Generates rock every 4 seconds
             rockTime = rockClock.getElapsedTime();
-
-            if (rockTime.asSeconds() >= 7) {
+            if (rockTime.asSeconds() >= 4) {
                 meteor.location();
                 rockClock.restart();
             }
             meteor.moveMeteors(2.5f); //Rock speed
             for (auto& meteorSprite : meteor.getObjects()) {
                 Play.draw(meteorSprite);
+            }
+
+            astTime = astClock.getElapsedTime();
+            if (astTime.asSeconds() >= 10) {
+                asteroid.location();
+                astClock.restart();
+            }
+            asteroid.moveAsteroids(1.5f); //Rock speed
+            for (auto& astSprite : asteroid.getObjects()) {
+                Play.draw(astSprite);
             }
 
             //Deletes objects
@@ -286,6 +300,12 @@ void Game::runGame(RenderWindow& Play) {
             //Collision detection for user and rock
             for (const auto& meteorSprite : meteor.getObjects()) {
                 if (Collision::PixelPerfectTest(player.getSprite(), meteorSprite)) {
+                    Play.close();
+                }
+            }
+            //Collision detection for user and asteroid
+            for (const auto& astSprite : asteroid.getObjects()) {
+                if (Collision::PixelPerfectTest(player.getSprite(), astSprite)) {
                     Play.close();
                 }
             }

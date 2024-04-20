@@ -8,6 +8,7 @@ public:
     virtual void setSprite();
     virtual void moveMeteors(float speed);
     void location();
+private:
 };
 
 Meteor::Meteor() {

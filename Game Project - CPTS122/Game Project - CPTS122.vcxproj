@@ -192,6 +192,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Alien.hpp" />
+    <ClInclude Include="Asteroid.hpp" />
     <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Contact.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -203,7 +204,10 @@
     <ClInclude Include="Platform.hpp" />
     <ClInclude Include="Character.hpp" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Shower.hpp" />
+    <ClInclude Include="Stars.hpp" />
     <ClInclude Include="Textures.hpp" />
+    <ClInclude Include="Wall.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
