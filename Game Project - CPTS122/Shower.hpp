@@ -55,7 +55,7 @@ Alien1::Alien1() {
 }
 
 void Alien1::loadTexture() {
-    objTex.loadFromFile("textures/alien1.PNG");
+    objTex.loadFromFile("textures/ice.PNG");
 }
 
 void Alien1::setSprite() {
@@ -71,7 +71,7 @@ void Alien1::moveAlien1(float speed, float angle) {
 
 void Alien1::startAlien1() {
     newObj.setTexture(objTex);
-    newObj.setScale(.3, 0.3);
+    newObj.setScale(3.0, 3.0);
 
     newObj.setPosition(1600.0f, -300.0f);
     objects.push_back(newObj);
@@ -94,7 +94,7 @@ Alien2::Alien2() {
 }
 
 void Alien2::loadTexture() {
-    objTex.loadFromFile("textures/alien2.PNG");
+    objTex.loadFromFile("textures/lava.PNG");
 }
 
 void Alien2::setSprite() {
@@ -110,7 +110,7 @@ void Alien2::moveAlien2(float speed, float angle) {
 
 void Alien2::startAlien2() {
     newObj.setTexture(objTex);
-    newObj.setScale(.3, 0.3);
+    newObj.setScale(3.0, 3.0);
 
     newObj.setPosition(2000.0f, -150.0f);
     objects.push_back(newObj);
@@ -133,7 +133,7 @@ Alien3::Alien3() {
 }
 
 void Alien3::loadTexture() {
-    objTex.loadFromFile("textures/alien3.PNG");
+    objTex.loadFromFile("textures/star.PNG");
 }
 
 void Alien3::setSprite() {
@@ -149,7 +149,7 @@ void Alien3::moveAlien3(float speed, float angle) {
 
 void Alien3::startAlien3() {
     newObj.setTexture(objTex);
-    newObj.setScale(.3, 0.3);
+    newObj.setScale(3.0, 3.0);
 
     newObj.setPosition(2400.0f, -200.0f);
     objects.push_back(newObj);
@@ -172,7 +172,7 @@ Alien4::Alien4() {
 }
 
 void Alien4::loadTexture() {
-    objTex.loadFromFile("textures/alien4.PNG");
+    objTex.loadFromFile("textures/galaxy.PNG");
 }
 
 void Alien4::setSprite() {
@@ -188,7 +188,7 @@ void Alien4::moveAlien4(float speed, float angle) {
 
 void Alien4::startAlien4() {
     newObj.setTexture(objTex);
-    newObj.setScale(.3, 0.3);
+    newObj.setScale(4.0, 4.0);
 
     newObj.setPosition(2800.0f, -250.0f);
     objects.push_back(newObj);
