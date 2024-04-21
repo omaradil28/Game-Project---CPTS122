@@ -11,8 +11,9 @@ public:
 	virtual void loadTexture();
 	virtual void setSprite();
 	virtual void movement();
-
+	void shrink();
 private:
+
 };
 
 Player::Player() {
@@ -53,3 +54,8 @@ void Player::movement() {
 void Player::loadTexture() {
 	characterTex.loadFromFile("textures/PLAYER_SPRITE.PNG");
 }
+
+void Player::shrink() {
+	characterSprite.setScale(2.0, 2.0);
+}
+

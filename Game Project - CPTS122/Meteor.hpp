@@ -8,6 +8,7 @@ public:
     virtual void setSprite();
     virtual void moveMeteors(float speed);
     void location();
+
 private:
 };
 
@@ -28,6 +29,7 @@ void Meteor::moveMeteors(float speed) {
     for (auto& meteor : objects) {
         meteor.move(-speed, 0.1);
     }
+
 }
 
 void Meteor::location() {
@@ -55,3 +57,4 @@ void Meteor::location() {
         objects.push_back(newObj);
     }
 }
+

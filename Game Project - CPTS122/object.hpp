@@ -12,6 +12,10 @@ public:
 protected:
 	Texture objTex;
 	vector<Sprite> objects;
+	vector<Sprite> objects2;
+	vector<Sprite> objects3;
+	vector<Sprite> objects4;
+	vector<Sprite> objects5;
 	Sprite objSprite;
 	Sprite newObj;
 	Clock deleteClock;

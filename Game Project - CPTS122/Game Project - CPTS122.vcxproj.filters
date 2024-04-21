@@ -68,7 +68,7 @@
     <ClInclude Include="Stars.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Wall.hpp">
+    <ClInclude Include="Zeno.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
