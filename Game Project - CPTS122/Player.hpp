@@ -4,9 +4,6 @@
 #include"Character.hpp"
 #include"PA9.hpp"
 
-extern int playerMove;
-IntRect rectPlayerSprite(0, 0, 46, 73);
-
 class Player : public Character {
 public:
 	Player();
@@ -24,29 +21,31 @@ Player::Player() {
 }
 
 void Player::setSprite() {
-	characterSprite.setTextureRect(rectPlayerSprite);
+    IntRect rectPlayerSprite(0, 0, 512, 512);
+    setSpriteRect(rectPlayerSprite);
+	characterSprite.setTextureRect(getSpriteRect());
 	characterSprite.setTexture(characterTex);
 	characterSprite.setScale(4, 4);
 	characterSprite.setPosition(400.0f, 1205.0f);
 }
 
-// This changes the "Mode" for playerMove. This connects to Game.hpp that deals with animation.
+// This changes the animation sequence for the player based on movement.
 void Player::movement() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-		playerMove = 2;
-		characterSprite.move(0.0f, -1.5f);
+        setAnimSeq(2);
+        characterSprite.move(0.0f, -1.5f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-		playerMove = 2;
+        setAnimSeq(2);
 		characterSprite.move(0.0f, 1.5f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-		playerMove = 1;
-		characterSprite.move(-1.5f, 0.0f);
+        setAnimSeq(1);
+        characterSprite.move(-1.5f, 0.0f);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-		playerMove = 0;
-		characterSprite.move(1.5f, 0.0f);
+        setAnimSeq(0);
+        characterSprite.move(1.5f, 0.0f);
 	}
 
 	if (characterSprite.getPosition().y > 1205)
@@ -63,43 +62,43 @@ void Player::shrink() {
 
 
 void Player::animation(){
-    if (playerMove == 0) {
-        rectPlayerSprite.height = 73;
-        rectPlayerSprite.top = 73;
+    if (getAnimSeq() == 0) {
+        getSpriteRect().height = 73;
+        getSpriteRect().top = 73;
 
-        if (rectPlayerSprite.left == 58) {
-            rectPlayerSprite.left = 0;
-            rectPlayerSprite.width = 58;
+        if (getSpriteRect().left == 58) {
+            getSpriteRect().left = 0;
+            getSpriteRect().width = 58;
         }
         else {
-            rectPlayerSprite.left = 58;
-            rectPlayerSprite.width = 56;
+            getSpriteRect().left = 58;
+            getSpriteRect().width = 56;
         }
     }
 
-    else if (playerMove == 1) {
-        rectPlayerSprite.height = 73;
-        rectPlayerSprite.top = 292;
-        rectPlayerSprite.width = 48;
+    else if (getAnimSeq() == 1) {
+        getSpriteRect().height = 73;
+        getSpriteRect().top = 292;
+        getSpriteRect().width = 48;
 
-        if (rectPlayerSprite.left == 96) {
-            rectPlayerSprite.left = 48;
+        if (getSpriteRect().left == 96) {
+            getSpriteRect().left = 48;
         }
         else {
-            rectPlayerSprite.left = 96;
+            getSpriteRect().left = 96;
         }
     }
     else {
-        rectPlayerSprite.top = 0;
-        rectPlayerSprite.height = 73;
-        rectPlayerSprite.width = 46;
+        getSpriteRect().top = 0;
+        getSpriteRect().height = 73;
+        getSpriteRect().width = 46;
 
 
-        if (rectPlayerSprite.left == 46) {
-            rectPlayerSprite.left = 0;
+        if (getSpriteRect().left == 46) {
+            getSpriteRect().left = 0;
         }
         else {
-            rectPlayerSprite.left = 46;
+            getSpriteRect().left = 46;
         }
     }
 }

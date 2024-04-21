@@ -15,8 +15,6 @@
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
 
-int playerMove;
-
 class Game {
 public:
     Game();
@@ -54,6 +52,9 @@ private:
     Text paused;
     Text paused2;
 
+    //CODE FOR INFINITE-SCROLLING BACKGROUND
+    ///
+
     int restart = 0;
 };
 
@@ -67,8 +68,9 @@ Game::Game() {
     loader.loadTexture(menuTexture, "textures/cool.png");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(WinWidth, WinHeight));
 
-    loader.loadTexture(gameTexture, "textures/space.jpeg");
-    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth, WinHeight));
+
+    loader.loadTexture(gameTexture, "textures/InfiniteBackground.png");
+    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth*10, WinHeight));
 
     loader.loadTexture(optionsTexture, "textures/options.jpeg");
     loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(WinWidth, WinHeight));
@@ -184,7 +186,7 @@ void Game::runGame(RenderWindow& Play) {
     Clock zenoClock;
     Time zenoTime;
 
-    Clock playerClock;
+    Clock animationClock;
 
 
     bool pause = false;
@@ -211,12 +213,21 @@ void Game::runGame(RenderWindow& Play) {
             }
         }
 
+        Play.clear();
+
+
         if (!pause) {
-            Play.clear();
             Play.draw(gameBackground);
+            gameBackground.move(Vector2f(-0.1, 0));
+
 
             // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
-            if (playerClock.getElapsedTime().asSeconds() > 1.0f) player.animation();
+            if (animationClock.getElapsedTime().asSeconds() > 0.1f) {
+                player.animation();
+                alien.animation();
+                animationClock.restart();
+            }
+
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
@@ -306,8 +317,10 @@ void Game::runGame(RenderWindow& Play) {
                 Play.draw(alien4Sprite);
             }
 
-            playerMove = 2;
-            player.getSprite().setTextureRect(rectPlayerSprite);
+            alien.setAnimSeq(0);
+            player.setAnimSeq(2);
+            player.getSprite().setTextureRect(player.getSpriteRect());
+            alien.getSprite().setTextureRect(alien.getSpriteRect());
             Play.draw(alien.getSprite());
             Play.draw(player.getSprite());
             player.movement();
