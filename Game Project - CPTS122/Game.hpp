@@ -15,8 +15,6 @@
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
 
-IntRect rectSourceSprite(0, 0, 46, 73);
-
 int playerMove;
 
 class Game {
@@ -218,48 +216,7 @@ void Game::runGame(RenderWindow& Play) {
             Play.draw(gameBackground);
 
             // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
-            if (playerClock.getElapsedTime().asSeconds() > 1.0f) {
-
-                if (playerMove == 0) {
-                    rectSourceSprite.height = 73;
-                    rectSourceSprite.top = 73;
-
-                    if (rectSourceSprite.left == 58) {
-                        rectSourceSprite.left = 0;
-                        rectSourceSprite.width = 58;
-                    }
-                    else {
-                        rectSourceSprite.left = 58;
-                        rectSourceSprite.width = 56;
-                    }
-                }
-
-                else if (playerMove == 1) {
-                    rectSourceSprite.height = 73;
-                    rectSourceSprite.top = 292;
-                    rectSourceSprite.width = 48;
-
-                    if (rectSourceSprite.left == 96) {
-                        rectSourceSprite.left = 48;
-                    }
-                    else {
-                        rectSourceSprite.left = 96;
-                    }
-                }
-                else {
-                    rectSourceSprite.top = 0;
-                    rectSourceSprite.height = 73;
-                    rectSourceSprite.width = 46;
-
-
-                    if (rectSourceSprite.left == 46) {
-                        rectSourceSprite.left = 0;
-                    }
-                    else {
-                        rectSourceSprite.left = 46;
-                    }
-                }
-            }
+            if (playerClock.getElapsedTime().asSeconds() > 1.0f) player.animation();
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
@@ -350,7 +307,7 @@ void Game::runGame(RenderWindow& Play) {
             }
 
             playerMove = 2;
-            player.getSprite().setTextureRect(rectSourceSprite);
+            player.getSprite().setTextureRect(rectPlayerSprite);
             Play.draw(alien.getSprite());
             Play.draw(player.getSprite());
             player.movement();
