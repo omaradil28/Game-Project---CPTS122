@@ -1,6 +1,6 @@
 #References
 
-##Images
+##Images:
 plat.PNG - https://www.reddit.com/r/PixelArt/comments/jrvtud/my_first_attempt_at_earth_pixel_art_what_does/
 
 shower.PNG - https://www.vecteezy.com/vector-art/36001098-pixel-art-illustration-meteor-pixelated-meteor-space-comet-meteor-pixelated-for-the-pixel-art-game-and-icon-for-website-and-video-game-old-school-retro
@@ -27,12 +27,12 @@ star.PNG - https://deep-fold.itch.io/pixel-planet-generator
 
 about.JPEG - https://www.istockphoto.com/vector/planets-and-nebula-background-in-pixel-art-style-gm1403514917-456051805
 
-##Code
+##Code:
 Menu.hpp - https://www.youtube.com/watch?v=bOG8667yePY&t=2s
 Video used to help create a menu.
 
 Collision.hpp - https://github.com/SonarSystems/SFML-Box2D-Tutorials
 Github containing the code that allows for pixel perfect collision
 
-##Font
+##Font:
 TH3 MACHINE.ttf - https://www.dafont.com/th3-machine.font
