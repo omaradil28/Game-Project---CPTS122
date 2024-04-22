@@ -11,6 +11,7 @@
 #include"Asteroid.hpp"
 #include"Shower.hpp"
 #include"Zeno.hpp"
+#include"Stars.hpp"
 
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
@@ -20,7 +21,7 @@ public:
     Game();
     void run();
     void runGame(RenderWindow& window);
-    void collision(RenderWindow&);
+    void collision(RenderWindow&, Time);
 
 private:
     Player player;
@@ -34,6 +35,8 @@ private:
     Meteor meteor;
     Asteroid asteroid;
     Shower shower;
+    StarShrink shrink;
+    StarSpeed speed;
 
     classTexture loader;
 
@@ -47,13 +50,13 @@ private:
     Texture optionsTexture;
     Texture aboutTexture;
 
+    Clock abilityClock;
     Clock deleteClock;
     Font font;
     Text paused;
     Text paused2;
 
     //CODE FOR INFINITE-SCROLLING BACKGROUND
-    ///
 
     int restart = 0;
 };
@@ -186,7 +189,11 @@ void Game::runGame(RenderWindow& Play) {
     Clock zenoClock;
     Time zenoTime;
 
+    Clock shrinkClock;
+    Time shrinkTime;
+
     Clock animationClock;
+    Clock abilityClock;
 
 
     bool pause = false;
@@ -227,7 +234,6 @@ void Game::runGame(RenderWindow& Play) {
                 alien.animation();
                 animationClock.restart();
             }
-
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
@@ -317,6 +323,28 @@ void Game::runGame(RenderWindow& Play) {
                 Play.draw(alien4Sprite);
             }
 
+            //Prints the star every 30 seconds
+            shrinkTime = shrinkClock.getElapsedTime();
+            if (shrinkTime.asSeconds() >= 30) {
+                shrink.location();
+                shrinkClock.restart();
+            }
+            shrink.moveStar(1.5f); //Star speed
+            for (auto& shrinkSprite : shrink.getObjects()) {
+                Play.draw(shrinkSprite);
+            }
+
+            //Prints the big asteroid every 10 seconds
+            astTime = astClock.getElapsedTime();
+            if (astTime.asSeconds() >= 10) {
+                asteroid.location();
+                astClock.restart();
+            }
+            asteroid.moveAsteroids(1.5f); //Rock speed
+            for (auto& astSprite : asteroid.getObjects()) {
+                Play.draw(astSprite);
+            }
+
             alien.setAnimSeq(0);
             player.setAnimSeq(2);
             player.getSprite().setTextureRect(player.getSpriteRect());
@@ -326,7 +354,8 @@ void Game::runGame(RenderWindow& Play) {
             player.movement();
             Play.display();
            
-            collision(Play);
+            collision(Play, abilityClock.getElapsedTime());
+
         }
         else {
             paused.setString("Game Paused");
@@ -339,7 +368,7 @@ void Game::runGame(RenderWindow& Play) {
     }
 }
 
-void Game::collision(RenderWindow& Play) {
+void Game::collision(RenderWindow& Play, Time time) {
     //Collision detection for user and alien
     if (Collision::PixelPerfectTest(player.getSprite(), alien.getSprite())) {
         Play.close();
@@ -384,9 +413,22 @@ void Game::collision(RenderWindow& Play) {
             Play.close();
         }
     }
+
+    //Collision for user and zenomorph
     for (const auto& zenoSprite : zeno.getObjects()) {
         if (Collision::PixelPerfectTest(player.getSprite(), zenoSprite)) {
             Play.close();
         }
+    }
+
+    //Collision for user and star that creates temporary shrink ability
+    for (const auto& shrinkSprite : shrink.getObjects()) {
+        if (Collision::PixelPerfectTest(player.getSprite(), shrinkSprite)) {
+            abilityClock.restart();
+            player.getSprite().setScale(2.0f, 2.0f);
+        }
+    }
+    if (abilityClock.getElapsedTime().asSeconds() >= 30) {
+        player.getSprite().setScale(4.0f, 4.0f);
     }
 }

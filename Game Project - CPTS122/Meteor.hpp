@@ -39,14 +39,14 @@ void Meteor::location() {
         newObj.setTexture(objTex);
         newObj.setScale(.1, 0.1);
 
-        newObj.setPosition(2850.0f, 700.0f);
+        newObj.setPosition(2850.0f, 300.0f);
         objects.push_back(newObj);
     }
     else if (num == 2) {
         newObj.setTexture(objTex);
         newObj.setScale(.1, 0.1);
 
-        newObj.setPosition(2800.0f, 900.0f);
+        newObj.setPosition(2800.0f, 800.0f);
         objects.push_back(newObj);
     }
     else if (num == 3) {
