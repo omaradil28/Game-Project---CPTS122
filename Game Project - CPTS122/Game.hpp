@@ -180,7 +180,7 @@ void Game::run() {
                         about.setFillColor(Color::Magenta);
                         about.setPosition(100, 100);
 
-                        about2.setString("Computer Science 122 Programming Assignment 9\nCreated by:\nAlejandro Ramirez\nEmili Adachi\nOmar Adil\n\n");
+                        about2.setString("Computer Science 122 Programming Assignment 9\nCreated by:\nAlejandro Ramirez\nEmili Adachi\nOmar Adil\n\nFly through space while trying to dodge \nvarious environmental hazards!");
                         about2.setCharacterSize(80);
                         about2.setFillColor(Color::Red);
                         about2.setPosition(100, 400);
