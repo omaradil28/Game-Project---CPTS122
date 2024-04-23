@@ -9,26 +9,26 @@ public:
     virtual void moveAsteroids(float speed);
     void location();
 };
-
+//Constructor
 Asteroid::Asteroid() {
     this->call();
 }
-
+//Loads texture
 void Asteroid::loadTexture() {
     objTex.loadFromFile("textures/ast.PNG");
 }
-
+//Sets texture and scale
 void Asteroid::setSprite() {
     objSprite.setTexture(objTex);
     objSprite.setScale(1.0, 0.5);
 }
-
+//Moves asteroid at a slight angle and certain speed
 void Asteroid::moveAsteroids(float speed) {
     for (auto& asteroid : objects) {
         asteroid.move(-speed, 0.2);
     }
 }
-
+//Prints asteroid at one of two locations
 void Asteroid::location() {
     int num = 0;
     num = rand() % 2 + 1;

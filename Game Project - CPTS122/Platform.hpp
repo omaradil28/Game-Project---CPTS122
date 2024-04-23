@@ -9,26 +9,26 @@ public:
     virtual void movePlatforms(float speed);
     virtual void generatePlatform();
 };
-
+//Constructor
 Platform::Platform() {
     this->call();
 }
-
+//Loads texture
 void Platform::loadTexture() {
     objTex.loadFromFile("textures/plat.PNG");
 }
-
+//Sets texture and scale
 void Platform::setSprite() {
     objSprite.setTexture(objTex);
     objSprite.setScale(1.0, 0.5);
 }
-
+//Moves platform horizontally at a certain speed
 void Platform::movePlatforms(float speed) {
     for (auto& platform : objects) {
         platform.move(-speed, 0.0f);
     }
 }
-
+//Generates them in the same spot every time
 void Platform::generatePlatform() {
     newObj.setTexture(objTex);
     newObj.setScale(1.0, 0.5);

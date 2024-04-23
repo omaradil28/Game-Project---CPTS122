@@ -1,6 +1,6 @@
 #pragma once
 #include"Game.hpp"
-
+//Base function for all the objects, typically projectiles, in the game.
 class Object {
 public:
 	virtual void call();
@@ -22,15 +22,16 @@ protected:
 	sf::Vector2f position;
 };
 
+//Constructor
 void Object::call() {
 	loadTexture();
 	setSprite();
 }
 
+//Getters
 vector<Sprite>& Object::getObjects() {
 	return objects;
 }
-
 Sprite& Object::getSprite() {
 	return objSprite;
 }

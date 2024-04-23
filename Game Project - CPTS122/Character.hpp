@@ -1,7 +1,7 @@
 #pragma once
 #include"Game.hpp"
 
-
+//Base function for the player and alien
 class Character {
 public:
 	virtual void call();
@@ -22,11 +22,13 @@ protected:
 	Sprite characterSprite;
 };
 
+/// Constructor
 void Character::call() {
 	loadTexture();
 	setSprite();
 }
 
+//Getter
 Sprite& Character::getSprite() {
 	return characterSprite;
 }

@@ -22,9 +22,8 @@ private:
 };
 
 Menu::Menu(float width, float height) {
-	if (!font.loadFromFile("textures/TH3 MACHINE.ttf")) {
-		cout << "No font loaded";
-	}
+	//Loads font
+	font.loadFromFile("textures/TH3 MACHINE.ttf");
 
 	//Title
 	title.setFont(font);
@@ -43,7 +42,7 @@ Menu::Menu(float width, float height) {
 	//Options
 	menu[1].setFont(font);
 	menu[1].setFillColor(Color::Red);
-	menu[1].setString("CONTROLS");
+	menu[1].setString("CONTROLS/TIPS");
 	menu[1].setCharacterSize(150);
 	menu[1].setPosition(150, 600);
 
@@ -66,6 +65,7 @@ Menu::Menu(float width, float height) {
 
 Menu::~Menu(){}
 
+//Draws the menu
 void Menu::draw(RenderWindow& window) {
 	window.draw(title);
 	for (int i = 0; i < Max_main_menu; ++i) {

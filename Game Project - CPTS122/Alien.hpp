@@ -2,7 +2,7 @@
 #include"Game.hpp"
 #include "Character.hpp"
 
-
+//Alien 
 class Alien : public Character {
 public:
 	Alien();
@@ -12,15 +12,15 @@ public:
     void animation();
 
 };
-
+//Constructor
 Alien::Alien() {
 	Character::call();
 }
-
+//Sets texture
 void Alien::loadTexture() {
 	characterTex.loadFromFile("textures/Red-Alien.PNG");
 }
-
+//Sets sprites scale,texture, position
 void Alien::setSprite() {
     IntRect rectAlienSprite(0, 40, 390, 376);
     setSpriteRect(rectAlienSprite);

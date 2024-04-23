@@ -68,5 +68,8 @@
     <ClInclude Include="Zeno.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Rockets.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
