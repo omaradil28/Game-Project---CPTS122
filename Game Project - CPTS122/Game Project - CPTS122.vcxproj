@@ -197,7 +197,7 @@
     <ClInclude Include="Contact.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Menu.hpp" />
-    <ClInclude Include="Meteor.hpp" />
+    <ClInclude Include="FlameEye.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="PA9.hpp" />
     <ClInclude Include="Platform.hpp" />
@@ -207,7 +207,7 @@
     <ClInclude Include="Shower.hpp" />
     <ClInclude Include="Stars.hpp" />
     <ClInclude Include="Textures.hpp" />
-    <ClInclude Include="Zeno.hpp" />
+    <ClInclude Include="Spore.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

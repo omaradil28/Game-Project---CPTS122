@@ -18,16 +18,16 @@ Alien::Alien() {
 }
 //Sets texture
 void Alien::loadTexture() {
-	characterTex.loadFromFile("textures/Red-Alien.PNG");
+	characterTex.loadFromFile("textures/MonsterWalkSpriteSheet.PNG");
 }
 //Sets sprites scale,texture, position
 void Alien::setSprite() {
-    IntRect rectAlienSprite(0, 40, 390, 376);
+    IntRect rectAlienSprite(0, 30, 120, 120);
     setSpriteRect(rectAlienSprite);
     characterSprite.setTextureRect(rectAlienSprite);
 	characterSprite.setTexture(characterTex);
-	characterSprite.setScale(3.0, 3.0);
-	characterSprite.setPosition(-750.0f, 225.0f);
+	characterSprite.setScale(10.0, 10.0);
+	characterSprite.setPosition(-700.0f, 460.0f);
 }
 
 void Alien::movement() {
@@ -36,27 +36,13 @@ void Alien::movement() {
 
 void Alien::animation() {
 
-    if (getAnimSeq() == 0) {
-        getSpriteRect().top = 40;
-
-        if (getSpriteRect().left == 0) {
-            getSpriteRect().left = 3584;
-        }
-        else {
-            getSpriteRect().left -= 512;
-        }
+    if (getSpriteRect().left == 5850) {
+        getSpriteRect().left = 0;
     }
-
-    else if (getAnimSeq() == 1) {
-        getSpriteRect().top = 512;
-
-        if (getSpriteRect().left == 0) {
-            getSpriteRect().left = 3584;
-        }
-        else {
-            getSpriteRect().left -= 512;
-        }
+    else {
+        getSpriteRect().left += 150;
     }
+    
 }
 
 

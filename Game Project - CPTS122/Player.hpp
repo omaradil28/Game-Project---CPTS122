@@ -22,12 +22,12 @@ Player::Player() {
 
 //Sets sprite size, texture, scale, position, and animation variables.
 void Player::setSprite() {
-    IntRect rectPlayerSprite(0, 0, 512, 512);
+    IntRect rectPlayerSprite(0, 0, 73, 73);
     setSpriteRect(rectPlayerSprite);
 	characterSprite.setTextureRect(getSpriteRect());
 	characterSprite.setTexture(characterTex);
 	characterSprite.setScale(4, 4);
-	characterSprite.setPosition(400.0f, 1205.0f);
+	characterSprite.setPosition(1000.0f, 1205.0f);
 }
 
 // This changes the animation sequence for the player based on movement.

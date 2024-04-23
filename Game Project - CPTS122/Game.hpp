@@ -6,11 +6,11 @@
 #include"Player.hpp"
 #include"Alien.hpp"
 #include"Platform.hpp"
-#include"Meteor.hpp"
+#include"FlameEye.hpp"
 #include"Object.hpp"
 #include"Asteroid.hpp"
 #include"Shower.hpp"
-#include"Zeno.hpp"
+#include"Spore.hpp"
 #include"Stars.hpp"
 #include"Rockets.hpp"
 
@@ -33,9 +33,9 @@ private:
     Alien2 alien2;
     Alien3 alien3; 
     Alien4 alien4;
-    Zeno zeno;
+    Spore spore;
     Platform platform;
-    Meteor meteor;
+    FlameEye flameeye;
     Asteroid asteroid;
     Shower shower;
     StarShrink shrink;
@@ -92,12 +92,12 @@ Game::Game() {
     score.setFont(font);
 
     //Loads Wallpapers
-    loader.loadTexture(menuTexture, "textures/cool.png");
+    loader.loadTexture(menuTexture, "textures/gray planet.jpg");
     loader.setTexture(menuBackground, menuTexture, sf::Vector2f(WinWidth, WinHeight));
 
 
     loader.loadTexture(gameTexture, "textures/InfiniteBackground.png");
-    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth*10, WinHeight));
+    loader.setTexture(gameBackground, gameTexture, sf::Vector2f(WinWidth * 10, WinHeight));
 
     loader.loadTexture(optionsTexture, "textures/options.jpeg");
     loader.setTexture(optionsBackground, optionsTexture, sf::Vector2f(WinWidth, WinHeight));
@@ -227,6 +227,7 @@ void Game::run() {
 
 //Function that runs the actual game
 void Game::runGame(RenderWindow& Play) {
+
     //Clock that prints each object at certain times, in seconds
     Clock platformClock;
     Time platformTime;
@@ -240,8 +241,8 @@ void Game::runGame(RenderWindow& Play) {
     Clock showerClock;
     Time showerTime;
 
-    Clock zenoClock;
-    Time zenoTime;
+    Clock sporeClock;
+    Time sporeTime;
 
     Clock shrinkClock;
     Time shrinkTime;
@@ -253,7 +254,6 @@ void Game::runGame(RenderWindow& Play) {
 
     //Helps pause game
     bool pause = false;
-
 
     while (Play.isOpen()) {
         //Closes game if pressing escape, pauses if pressing P
@@ -269,7 +269,7 @@ void Game::runGame(RenderWindow& Play) {
                 }
             }
             if (newEvent.type == Event::KeyPressed) {
-                if (newEvent.type == Event::KeyPressed && newEvent.key.code == sf::Keyboard::P){
+                if (newEvent.type == Event::KeyPressed && newEvent.key.code == sf::Keyboard::P) {
                     pause = !pause;
 
                 }
@@ -278,7 +278,6 @@ void Game::runGame(RenderWindow& Play) {
 
         Play.clear();
 
-
         if (!pause) {
             //If game is not paused, runs this code.
             Play.draw(gameBackground);
@@ -286,15 +285,17 @@ void Game::runGame(RenderWindow& Play) {
 
 
             // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
-            if (animationClock.getElapsedTime().asSeconds() > 0.1f) {
+            if (animationClock.getElapsedTime().asSeconds() > 0.04f) {
                 player.animation();
+                flameeye.animation();
                 alien.animation();
+                spore.animation();
                 animationClock.restart();
             }
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
-            if (platformTime.asSeconds() >= 2) {
+            if (platformTime.asSeconds() >= 1) {
                 platform.generatePlatform();
                 platformClock.restart();
             }
@@ -304,47 +305,50 @@ void Game::runGame(RenderWindow& Play) {
             }
 
             //Generates platforms every 7 seconds
-            zenoTime = zenoClock.getElapsedTime();
-            if (zenoTime.asSeconds() >= 15) {
-                zeno.generateZeno();
-                zenoClock.restart();
+            sporeTime = sporeClock.getElapsedTime();
+            if (sporeTime.asSeconds() >= 15) {
+                spore.generateSpore();
+                sporeClock.restart();
             }
-            zeno.moveZeno(1.0f); //Platform speed
-            for (auto& zenoSprite : zeno.getObjects()) {
-                Play.draw(zenoSprite);
+            spore.moveSpore(1.0f); //Platform speed
+            for (auto& sporeSprite : spore.getObjects()) {
+                sporeSprite.setTextureRect(spore.getSpriteRect());
+                Play.draw(sporeSprite);
             }
 
-            //Generates meteor every 3 seconds. Can generate any where from 1 to 3 meteors, all projecting at unique locations.
+            //Generates FlameEye every 3 seconds. Can generate any where from 1 to 3 flameeyes, all projecting at unique locations.
             rockTime = rockClock.getElapsedTime();
-            if (rockTime.asSeconds() >= 3) {
+            if (rockTime.asSeconds() >= 2) {
                 int num = rand() % 3 + 1;
                 if (num == 1) {
-                    meteor.location();
+                    flameeye.location();
                 }
                 else if (num == 2) {
-                    meteor.location(); 
-                    meteor.location();
+                    flameeye.location();
+                    flameeye.location();
                 }
-                else if (num ==3) {
-                    meteor.location();
-                    meteor.location();
-                    meteor.location();
+                else if (num == 3) {
+                    flameeye.location();
+                    flameeye.location();
+                    flameeye.location();
                 }
                 rockClock.restart();
             }
-            meteor.moveMeteors(2.5f); //Meteor speed
-            for (auto& meteorSprite : meteor.getObjects()) {
-                Play.draw(meteorSprite);
+            flameeye.moveFlameEye(2.5f); //FlameEye speed
+            for (auto& FlameEyeSprite : flameeye.getObjects()) {
+                FlameEyeSprite.setTextureRect(flameeye.getSpriteRect());
+                Play.draw(FlameEyeSprite);
             }
-            
 
             //Prints the big asteroid every 10 seconds
             astTime = astClock.getElapsedTime();
             if (astTime.asSeconds() >= 10) {
+
                 asteroid.location();
                 astClock.restart();
             }
             asteroid.moveAsteroids(1.5f); //Rock speed
+
             for (auto& astSprite : asteroid.getObjects()) {
                 Play.draw(astSprite);
             }
@@ -414,26 +418,25 @@ void Game::runGame(RenderWindow& Play) {
             }
 
             //Deletes Platform
-            
 
-            //Deletes Meteor
-           /* for (int i = 0; i < 10; ++i)
+
+            //Deletes FlameEye
+            /* for (int i = 0; i < 10; ++i)
             {
-               
+
                 if ( > 3)
                 {
-                    meteor.location();
+                    FlameEye.location();
                     rockClock.restart();
-                   
+
                 }
             }*/
 
-            
+
             //Deletes Asteroid
 
 
             //Deletes Rocket
-
 
 
             scoreDisplay(Play);
@@ -445,7 +448,7 @@ void Game::runGame(RenderWindow& Play) {
             Play.draw(player.getSprite());
             player.movement();
             Play.display();
-           
+
             collision(Play, abilityClock.getElapsedTime());
 
         }
@@ -461,6 +464,7 @@ void Game::runGame(RenderWindow& Play) {
     }
 }
 
+
 //Collision detection function, created so its cleaner in the actual game function.
 void Game::collision(RenderWindow& Play, Time time) {
     //Collision detection for user and alien
@@ -469,8 +473,8 @@ void Game::collision(RenderWindow& Play, Time time) {
     }
 
     //Collision detection for user and rock
-    for (const auto& meteorSprite : meteor.getObjects()) {
-        if (Collision::PixelPerfectTest(player.getSprite(), meteorSprite)) {
+    for (const auto& FlameEyeSprite : flameeye.getObjects()) {
+        if (Collision::PixelPerfectTest(player.getSprite(), FlameEyeSprite)) {
             death(Play);
         }
     }
@@ -508,9 +512,9 @@ void Game::collision(RenderWindow& Play, Time time) {
         }
     }
 
-    //Collision for user and zenomorph
-    for (const auto& zenoSprite : zeno.getObjects()) {
-        if (Collision::PixelPerfectTest(player.getSprite(), zenoSprite)) {
+    //Collision for user and Spore
+    for (const auto& sporeSprite : spore.getObjects()) {
+        if (Collision::PixelPerfectTest(player.getSprite(), sporeSprite)) {
             death(Play);
         }
     }

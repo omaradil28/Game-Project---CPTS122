@@ -8,17 +8,24 @@ public:
     virtual void setSprite();
     virtual void moveAsteroids(float speed);
     void location();
+    void animation();
 };
+
 //Constructor
 Asteroid::Asteroid() {
     this->call();
 }
+
 //Loads texture
 void Asteroid::loadTexture() {
     objTex.loadFromFile("textures/ast.PNG");
 }
+
+
 //Sets texture and scale
 void Asteroid::setSprite() {
+    IntRect rectSprite(0, 0, 32, 24);
+    setSpriteRect(rectSprite);
     objSprite.setTexture(objTex);
     objSprite.setScale(1.0, 0.5);
 }
@@ -47,3 +54,15 @@ void Asteroid::location() {
         objects.push_back(newObj);
     }
 }
+
+void Asteroid::animation() {
+    getSpriteRect().top = 0;
+    getSpriteRect().width = 32;
+
+    if (getSpriteRect().left == 192) {
+        getSpriteRect().left = 0;
+    }
+    else {
+        getSpriteRect().left += 32;
+    }
+} 

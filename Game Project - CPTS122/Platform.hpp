@@ -15,7 +15,7 @@ Platform::Platform() {
 }
 //Loads texture
 void Platform::loadTexture() {
-    objTex.loadFromFile("textures/plat.PNG");
+    objTex.loadFromFile("textures/RunnerTileSet1.PNG");
 }
 //Sets texture and scale
 void Platform::setSprite() {
@@ -31,7 +31,7 @@ void Platform::movePlatforms(float speed) {
 //Generates them in the same spot every time
 void Platform::generatePlatform() {
     newObj.setTexture(objTex);
-    newObj.setScale(1.0, 0.5);
+    newObj.setScale(5, 5);
  
     newObj.setPosition(3000.0f, 1400.0f);
     objects.push_back(newObj);

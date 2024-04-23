@@ -2,12 +2,17 @@
 #include"Game.hpp"
 //Base function for all the objects, typically projectiles, in the game.
 class Object {
+
+	IntRect rectSprite;
 public:
 	virtual void call();
 	virtual void loadTexture() = 0;
 	virtual void setSprite() = 0;
 	vector<Sprite>& getObjects();
 	Sprite& getSprite();
+	void setSpriteRect(IntRect rectSpriteIn);
+	IntRect& getSpriteRect();
+
 protected:
 	Texture objTex;
 	vector<Sprite> objects;
@@ -19,6 +24,7 @@ protected:
 	Sprite newObj;
 	Clock deleteClock;
 	sf::Vector2f position;
+
 };
 
 //Constructor
@@ -33,4 +39,12 @@ vector<Sprite>& Object::getObjects() {
 }
 Sprite& Object::getSprite() {
 	return objSprite;
+}
+
+IntRect& Object::getSpriteRect() {
+	return rectSprite;
+}
+
+void Object::setSpriteRect(IntRect rectSpriteIn) {
+	rectSprite = rectSpriteIn;
 }

@@ -18,7 +18,7 @@ Rocket::Rocket() {
 }
 //Sets texture
 void Rocket::loadTexture() {
-    objTex.loadFromFile("textures/rocket.PNG");
+    objTex.loadFromFile("textures/satellite.PNG");
 }
 
 //Sets texture and scale
