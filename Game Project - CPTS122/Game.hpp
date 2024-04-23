@@ -305,7 +305,7 @@ void Game::runGame(RenderWindow& Play) {
 
             //Generates platforms every 7 seconds
             zenoTime = zenoClock.getElapsedTime();
-            if (zenoTime.asSeconds() >= 7) {
+            if (zenoTime.asSeconds() >= 15) {
                 zeno.generateZeno();
                 zenoClock.restart();
             }

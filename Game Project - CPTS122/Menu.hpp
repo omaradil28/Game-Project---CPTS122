@@ -22,9 +22,8 @@ private:
 };
 
 Menu::Menu(float width, float height) {
-	if (!font.loadFromFile("textures/TH3 MACHINE.ttf")) {
-		cout << "No font loaded";
-	}
+	//Loads font
+	font.loadFromFile("textures/TH3 MACHINE.ttf");
 
 	//Title
 	title.setFont(font);
@@ -66,6 +65,7 @@ Menu::Menu(float width, float height) {
 
 Menu::~Menu(){}
 
+//Draws the menu
 void Menu::draw(RenderWindow& window) {
 	window.draw(title);
 	for (int i = 0; i < Max_main_menu; ++i) {

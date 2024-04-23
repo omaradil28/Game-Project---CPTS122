@@ -1,6 +1,6 @@
 #pragma once
 #include"Object.hpp"
-//Comet 
+//Comet - Applies for all the class undereath as well
 class Shower : public Object {
 public:
     Shower();
@@ -10,26 +10,26 @@ public:
     void startShower();
 private:
 };
-
+//Constructor
 Shower::Shower() {
     this->call();
 }
-
+//Loads texture
 void Shower::loadTexture() {
     objTex.loadFromFile("textures/shower.PNG");
 }
-
+//Sets texture and scales sprite
 void Shower::setSprite() {
     objSprite.setTexture(objTex);
     objSprite.setScale(1.0, 0.5);
 }
-
+//Moves the speed of the comet
 void Shower::moveShower(float speed, float angle) {
     for (auto& comet : objects) {
         comet.move(speed, angle);
     }
 }
-
+//Sets position and scale
 void Shower::startShower() {
     newObj.setTexture(objTex);
     newObj.setScale(.3, 0.3);

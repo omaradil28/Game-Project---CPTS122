@@ -11,27 +11,27 @@ public:
 
 private:
 };
-
+//Constructor
 StarShrink::StarShrink() {
     this->call();
 }
-
+//Loads texture
 void StarShrink::loadTexture() {
     objTex.loadFromFile("textures/shrink.PNG");
 }
-
+//Sets texture and size
 void StarShrink::setSprite() {
     objSprite.setTexture(objTex);
     objSprite.setScale(1.0, 0.5);
 }
-
+//Star speed and angle
 void StarShrink::moveStar(float speed) {
     for (auto& meteor : objects) {
         meteor.move(-speed, 0.1);
     }
 
 }
-
+//Randomly generates one of the 3 locations it could spawn
 void StarShrink::location() {
     int num = 0;
     num = rand() % 3 + 1;
