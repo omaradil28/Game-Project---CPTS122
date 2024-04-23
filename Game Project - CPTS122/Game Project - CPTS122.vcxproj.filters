@@ -56,9 +56,6 @@
     <ClInclude Include="Character.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Obstacle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Asteroid.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
