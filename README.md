@@ -1,3 +1,10 @@
+#Team - Space Runners
+
+##Members - Emili Adachi, Alejandro Ramirez, Omar Adil
+
+#How to play
+Use the arrow keys to traverse the screen. Every obstacle is dangerous except for the platforms and stars. Star grant the ability to shrink temporarily. With that being said, survive for as long as you can!
+
 #References
 
 ##Images:
