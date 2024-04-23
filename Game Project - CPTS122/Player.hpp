@@ -11,15 +11,16 @@ public:
 	virtual void setSprite();
 	virtual void movement();
 	void animation();
-	void shrink();
 private:
 
 };
 
+//Contructor
 Player::Player() {
 	Character::call();
 }
 
+//Sets sprite size, texture, scale, position, and animation variables.
 void Player::setSprite() {
     IntRect rectPlayerSprite(0, 0, 512, 512);
     setSpriteRect(rectPlayerSprite);
@@ -52,14 +53,10 @@ void Player::movement() {
 		characterSprite.setPosition(characterSprite.getPosition().x, 1205);
 }
 
+//Loads texture
 void Player::loadTexture() {
 	characterTex.loadFromFile("textures/PLAYER_SPRITE.PNG");
 }
-
-void Player::shrink() {
-	characterSprite.setScale(2.0, 2.0);
-}
-
 
 void Player::animation(){
     if (getAnimSeq() == 0) {

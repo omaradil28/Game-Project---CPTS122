@@ -43,7 +43,7 @@ Menu::Menu(float width, float height) {
 	//Options
 	menu[1].setFont(font);
 	menu[1].setFillColor(Color::Red);
-	menu[1].setString("CONTROLS");
+	menu[1].setString("CONTROLS/TIPS");
 	menu[1].setCharacterSize(150);
 	menu[1].setPosition(150, 600);
 
