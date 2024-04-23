@@ -9,6 +9,7 @@ public:
     virtual void moveFlameEye(float speed);
     void location();
     void animation();
+    void deleteFlameEye();
 };
 //Constructor
 FlameEye::FlameEye() {
@@ -74,3 +75,7 @@ void FlameEye::animation() {
     }
 } 
 
+inline void FlameEye::deleteFlameEye()
+{
+    objects.erase(objects.begin());
+}

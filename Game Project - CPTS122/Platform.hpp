@@ -8,6 +8,7 @@ public:
     virtual void setSprite();
     virtual void movePlatforms(float speed);
     virtual void generatePlatform();
+    void deletePlat();
 };
 //Constructor
 Platform::Platform() {
@@ -37,5 +38,8 @@ void Platform::generatePlatform() {
     objects.push_back(newObj);
 }
 
-
+inline void Platform::deletePlat()
+{
+    objects.erase(objects.begin());
+}
 
