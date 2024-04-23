@@ -413,6 +413,29 @@ void Game::runGame(RenderWindow& Play) {
                 Play.draw(astSprite);
             }
 
+            //Deletes Platform
+            
+
+            //Deletes Meteor
+           /* for (int i = 0; i < 10; ++i)
+            {
+               
+                if ( > 3)
+                {
+                    meteor.location();
+                    rockClock.restart();
+                   
+                }
+            }*/
+
+            
+            //Deletes Asteroid
+
+
+            //Deletes Rocket
+
+
+
             scoreDisplay(Play);
             alien.setAnimSeq(0);
             player.setAnimSeq(2);
