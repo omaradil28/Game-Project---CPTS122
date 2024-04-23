@@ -5,6 +5,8 @@
 #How to play
 Use the arrow keys to traverse the screen. Every obstacle is dangerous except for the platforms and stars. Star grant the ability to shrink temporarily. With that being said, survive for as long as you can!
 
+#Important - This code is adjusted to be visually appealing for Omars Mac as he is the one creating the video. There is an issue in which Omars Mac seems to not be able to handle the code very well, theremore making it slower. And that makes the objects generate differently compared to running the same code on another computer. We are not sure how to counter this issue altogether so, if the objects (especially the platforms) seem to be disconnected, adjust the speeds of them in the game.hpp file.
+
 #References
 
 ##Images:
