@@ -1,6 +1,8 @@
 #pragma once
 #include"Object.hpp"
 
+class Test;
+
 class Asteroid : public Object {
 public:
     Asteroid();
@@ -9,6 +11,7 @@ public:
     virtual void moveAsteroids(float speed);
     void location();
     void animation();
+    friend Test;
 };
 
 //Constructor
