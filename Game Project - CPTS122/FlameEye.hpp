@@ -13,6 +13,8 @@ public:
     void animation();
     void deleteFlameEye();
     vector<int>& getSpawnVector();
+private:
+    Clock deleteTimer;
 };
 //Constructor
 FlameEye::FlameEye() {
@@ -82,7 +84,7 @@ vector<int>& FlameEye::getSpawnVector() {
     return flameEyeSpawnedNum;
 }
 
-inline void FlameEye::deleteFlameEye(){
+inline void FlameEye::deleteFlameEye() {
     if (flameEyeSpawnedNum.size() > 2) {
         getObjects().erase(getObjects().begin(), getObjects().begin() + flameEyeSpawnedNum.front());
         flameEyeSpawnedNum.erase(flameEyeSpawnedNum.begin());

@@ -453,7 +453,7 @@ void Game::runGame(RenderWindow& Play) {
 
 
             //Deletes FlameEye
-            if (flameeyeDeleteClock.getElapsedTime().asSeconds() > 2.05f) {
+            if (flameeyeDeleteClock.getElapsedTime().asSeconds() > 3.05f) {
                 flameeye.deleteFlameEye();
                 flameeyeDeleteClock.restart();
             }
