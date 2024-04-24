@@ -1,5 +1,6 @@
 #pragma once
-#include"Game.hpp"
+//#include"Game.hpp"
+#include "PA9.hpp"
 
 //Base function for the player and alien
 class Character {

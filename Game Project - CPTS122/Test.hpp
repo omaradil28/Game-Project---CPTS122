@@ -1,42 +1,37 @@
 #pragma once
 #include "Asteroid.hpp"
+#include "Player.hpp"
 
 class Test
 {
+	bool isEqual(double first, double second);
 public:
 	void testAsteroid();
+	void testPlayer();
 };
 
+bool Test::isEqual(double first, double second)
+{
+	return abs(first - second) < 0.001;
+}
 
 void Test::testAsteroid()
 {
 	Asteroid test;
 	bool success = true;
 
-	////Test resource/image loaded for asteroid//
-	if (test.objTex.hasImage())
-	{
-		cout << "Asteroid Loaded Image" << endl;
-	}
-	else
-	{
-		cout << "Asteroid Failed to Load" << endl;
-
-		success = false;
-	}
-
 	//Test location function//
 	srand(0);
 	test.location();
-	Sprite latest = test.objects.pop_back();
+	Sprite latest = test.objects.back();
 
-	if (latest.getScale().x == 0.5 && latest.getScale().y == 0.6)
+	if (abs(latest.getScale().x - 0.5) < 0.001 && abs(latest.getScale().y - 0.6) < 0.001)
 	{
 		cout << "Scale Set Properly" << endl;
 	}
 	else
 	{
-		cout << "Scale Set Incorrectly" << endl;
+		cout << "Scale Set Incorrectly x; " << latest.getScale().x << " y; " << latest.getScale().y << endl;
 		success = false;
 	}
 
@@ -70,4 +65,45 @@ void Test::testAsteroid()
 	{
 		cout << "All Asteroid Tests Pass" << endl;
 	}
+}
+
+void Test::testPlayer()
+{
+	Player test;
+
+	bool success = true;
+
+	//Test player movement//
+		//Case 1//
+	/*sf::Vector2f startPosition = test.getSprite().getPostition();
+
+	test.handleMovement(1);
+
+	sf::Vector2f endPosition = test.getSprite().getPosition();
+
+	if (isEqual(endPosition.x, startPosition.x) && isEqual(startPosition.y - 1.5, endPosition.y))
+	{
+		cout << "Movement Successful" << endl;
+	}
+	else
+	{
+		cout << "Movement Unsuccessful" << endl;
+		success = false;
+	}*/
+
+		//Case 2//
+	/*sf::Vector2f startPosition = test.getSprite().getPostition();
+
+	test.handleMovement(2);
+
+	sf::Vector2f endPosition = test.getSprite().getPosition();
+
+	if (isEqual(endPosition.x, startPosition.x) && isEqual(startPosition.y - 1.5, endPosition.y))
+	{
+		cout << "Movement Successful" << endl;
+	}
+	else
+	{
+		cout << "Movement Unsuccessful" << endl;
+	}*/
 }

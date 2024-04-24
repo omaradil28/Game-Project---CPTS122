@@ -5,9 +5,9 @@
 #include"Collision.hpp"
 #include"Player.hpp"
 #include"Alien.hpp"
-#include"Platform.hpp"
+#include"Platform.hpp" // Object
 #include"FlameEye.hpp"
-#include"Object.hpp"
+//#include"Object.hpp"
 #include"Asteroid.hpp"
 #include"Shower.hpp"
 #include"Spore.hpp"
@@ -15,6 +15,7 @@
 #include"Rockets.hpp"
 //#include"SpriteSound.hpp"
 
+//Moved to Libraries.hpp:
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
 

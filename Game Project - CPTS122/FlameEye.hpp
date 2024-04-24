@@ -35,8 +35,8 @@ void FlameEye::setSprite() {
 
 //Moves the flameeye at a certain speed and slightly diagonal angle
 void FlameEye::moveFlameEye(float speed) {
-    for (auto& FlameEye : objects) {
-        FlameEye.move(-speed, 0.1);
+    for (auto& flameEye : objects) {
+        flameEye.move(-speed, 0.1);
     }
 
 }

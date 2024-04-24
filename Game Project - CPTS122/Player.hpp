@@ -10,6 +10,7 @@ public:
 	virtual void loadTexture();
 	virtual void setSprite();
 	virtual void movement();
+    void handleMovement(int option);
 	void animation();
 private:
 
@@ -33,24 +34,42 @@ void Player::setSprite() {
 // This changes the animation sequence for the player based on movement.
 void Player::movement() {
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
-        setAnimSeq(2);
-        characterSprite.move(0.0f, -1.5f);
+        handleMovement(1);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
-        setAnimSeq(2);
-		characterSprite.move(0.0f, 1.5f);
+        handleMovement(2);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
-        setAnimSeq(1);
-        characterSprite.move(-1.5f, 0.0f);
+        handleMovement(3);
 	}
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
-        setAnimSeq(0);
-        characterSprite.move(1.5f, 0.0f);
+        handleMovement(4);
 	}
 
 	if (characterSprite.getPosition().y > 1205)
 		characterSprite.setPosition(characterSprite.getPosition().x, 1205);
+}
+void Player::handleMovement(int option)
+{
+    switch (option)
+    {
+    case 1:
+        setAnimSeq(2);
+        characterSprite.move(0.0f, -1.5f);
+        break;
+    case 2:
+        setAnimSeq(2);
+        characterSprite.move(0.0f, 1.5f);
+        break;
+    case 3:
+        setAnimSeq(1);
+        characterSprite.move(-1.5f, 0.0f);
+        break;
+    case 4:
+        setAnimSeq(0);
+        characterSprite.move(1.5f, 0.0f);
+        break;
+    }
 }
 
 //Loads texture
