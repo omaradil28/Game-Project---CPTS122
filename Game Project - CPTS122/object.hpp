@@ -1,17 +1,20 @@
 #pragma once
 #include"Game.hpp"
+
+
 //Base function for all the objects, typically projectiles, in the game.
 class Object {
-
 	IntRect rectSprite;
 public:
 	virtual void call();
 	virtual void loadTexture() = 0;
 	virtual void setSprite() = 0;
-	vector<Sprite>& getObjects();
-	Sprite& getSprite();
 	void setSpriteRect(IntRect rectSpriteIn);
 	IntRect& getSpriteRect();
+	vector<Sprite>& getObjects();
+	Sprite& getSprite();
+	Sound sound;
+	void PlaySound(string soundDir, bool looped);
 
 protected:
 	Texture objTex;
@@ -24,13 +27,14 @@ protected:
 	Sprite newObj;
 	Clock deleteClock;
 	sf::Vector2f position;
-
+	SoundBuffer buffer;
 };
 
 //Constructor
 void Object::call() {
 	loadTexture();
 	setSprite();
+
 }
 
 //Getters
@@ -47,4 +51,12 @@ IntRect& Object::getSpriteRect() {
 
 void Object::setSpriteRect(IntRect rectSpriteIn) {
 	rectSprite = rectSpriteIn;
+}
+
+void Object::PlaySound(string soundDir, bool looped) {
+
+	if (!buffer.loadFromFile(soundDir))
+		cout << "Unable to open " << soundDir << endl;
+	sound.play();
+	sound.setLoop(looped);
 }

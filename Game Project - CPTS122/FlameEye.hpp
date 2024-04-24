@@ -2,6 +2,8 @@
 #include"Object.hpp"
 
 class FlameEye : public Object {
+    vector<int> flameEyeSpawnedNum;
+
 public:
     FlameEye();
     virtual void loadTexture();
@@ -10,6 +12,7 @@ public:
     void location();
     void animation();
     void deleteFlameEye();
+    vector<int>& getSpawnVector();
 };
 //Constructor
 FlameEye::FlameEye() {
@@ -75,7 +78,13 @@ void FlameEye::animation() {
     }
 } 
 
-inline void FlameEye::deleteFlameEye()
-{
-    objects.erase(objects.begin());
+vector<int>& FlameEye::getSpawnVector() {
+    return flameEyeSpawnedNum;
+}
+
+inline void FlameEye::deleteFlameEye(){
+    if (flameEyeSpawnedNum.size() > 2) {
+        getObjects().erase(getObjects().begin(), getObjects().begin() + flameEyeSpawnedNum.front());
+        flameEyeSpawnedNum.erase(flameEyeSpawnedNum.begin());
+    }
 }

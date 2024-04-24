@@ -9,11 +9,13 @@ public:
     virtual void moveSpore(float speed);
     virtual void generateSpore();
     void animation();
+
 };
 
 //Constructor
 Spore::Spore() {
     this->call();
+
 }
 
 //Loads texture
@@ -39,6 +41,7 @@ void Spore::moveSpore(float speed) {
 
 //Sets scale and position then pushes into vector
 void Spore::generateSpore() {
+    PlaySound("Sounds/SPORE.mp3", true);
     newObj.setTexture(objTex);
     newObj.setScale(15, 15);
     newObj.setPosition(2850.0f, 1100.0f);
@@ -46,11 +49,14 @@ void Spore::generateSpore() {
 }
 
 void Spore::animation() {
+
+
     if (getSpriteRect().left == 96 && getSpriteRect().top == 5) {
         getSpriteRect().left = 0;
         getSpriteRect().top = 37;
     }
     else if (getSpriteRect().left == 96 && getSpriteRect().top == 37) {
+
         getSpriteRect().left = 0;
         getSpriteRect().top = 5;
     }
@@ -58,3 +64,4 @@ void Spore::animation() {
         getSpriteRect().left += 32;
     }
 }
+

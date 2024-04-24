@@ -13,9 +13,11 @@
 #include"Spore.hpp"
 #include"Stars.hpp"
 #include"Rockets.hpp"
+//#include"SpriteSound.hpp"
 
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
 #define WinHeight VideoMode().getDesktopMode().height
+
 
 class Game {
 public:
@@ -25,6 +27,10 @@ public:
     void collision(RenderWindow&, Time);
     void death(RenderWindow&);
     void scoreDisplay(RenderWindow&);
+    void musicPlayer(string songName, Music& musicIn);
+    void soundPlayer(string soundName, Sound& soundIn);
+
+    
 private:
     //All objects 
     Player player;
@@ -40,7 +46,6 @@ private:
     Shower shower;
     StarShrink shrink;
     Rocket rocket;
-
     classTexture loader;
 
     //Backgrounds
@@ -58,7 +63,6 @@ private:
 
     Clock abilityClock;
     Clock deleteClock;
-
     Font font;
 
     //Text for menu,score, and pause
@@ -69,6 +73,8 @@ private:
     Text about2;
     Text score;
 
+    SoundBuffer buffer;
+
     //Score Variable
     int scoring;
 
@@ -78,7 +84,6 @@ private:
 };
 
 Game::Game() {
-
     //Loads Font
     font.loadFromFile("textures/SaucerBB.ttf");
     paused.setFont(font);
@@ -107,8 +112,15 @@ Game::Game() {
 }
 
 void Game::run() {
+
     RenderWindow WINDOW(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(WINDOW.getSize().x, WINDOW.getSize().y);
+
+    Music music;
+    musicPlayer("Sounds/HEARTLESS.mp3", music);
+    music.setVolume(10);
+
+    
     //Main menu that allows user to traverse between playing, controls, about, and exit using up and down keys. Press return to enter the windows
     while (WINDOW.isOpen()) {
 
@@ -227,7 +239,6 @@ void Game::run() {
 
 //Function that runs the actual game
 void Game::runGame(RenderWindow& Play) {
-
     //Clock that prints each object at certain times, in seconds
     Clock platformClock;
     Time platformTime;
@@ -250,10 +261,22 @@ void Game::runGame(RenderWindow& Play) {
     Clock rocketClock;
     Time rocketTime;
 
+    Clock flameeyeDeleteClock;
+    Clock astDeleteClock;
+    Clock rocketDeleteClock;
+    Clock sporeDeleteClock;
+
     Clock animationClock;
 
     //Helps pause game
     bool pause = false;
+
+
+    // Jetpack Sound
+    Sound jetpack(buffer);
+    soundPlayer("Sounds/jetpack-thrust.wav", jetpack);
+    jetpack.setLoop(true);
+    jetpack.setVolume(5.0f);
 
     while (Play.isOpen()) {
         //Closes game if pressing escape, pauses if pressing P
@@ -276,12 +299,14 @@ void Game::runGame(RenderWindow& Play) {
             }
         }
 
+
         Play.clear();
 
         if (!pause) {
             //If game is not paused, runs this code.
             Play.draw(gameBackground);
             gameBackground.move(Vector2f(-0.1, 0));
+
 
 
             // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
@@ -292,6 +317,8 @@ void Game::runGame(RenderWindow& Play) {
                 spore.animation();
                 animationClock.restart();
             }
+
+
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
@@ -318,7 +345,9 @@ void Game::runGame(RenderWindow& Play) {
 
             //Generates FlameEye every 3 seconds. Can generate any where from 1 to 3 flameeyes, all projecting at unique locations.
             rockTime = rockClock.getElapsedTime();
+
             if (rockTime.asSeconds() >= 2) {
+
                 int num = rand() % 3 + 1;
                 if (num == 1) {
                     flameeye.location();
@@ -332,10 +361,12 @@ void Game::runGame(RenderWindow& Play) {
                     flameeye.location();
                     flameeye.location();
                 }
+                flameeye.getSpawnVector().push_back(num);
                 rockClock.restart();
             }
             flameeye.moveFlameEye(2.5f); //FlameEye speed
             for (auto& FlameEyeSprite : flameeye.getObjects()) {
+ 
                 FlameEyeSprite.setTextureRect(flameeye.getSpriteRect());
                 Play.draw(FlameEyeSprite);
             }
@@ -417,26 +448,36 @@ void Game::runGame(RenderWindow& Play) {
                 Play.draw(astSprite);
             }
 
-            //Deletes Platform
+    
+
 
 
             //Deletes FlameEye
-            /* for (int i = 0; i < 10; ++i)
-            {
-
-                if ( > 3)
-                {
-                    FlameEye.location();
-                    rockClock.restart();
-
-                }
-            }*/
-
+            if (flameeyeDeleteClock.getElapsedTime().asSeconds() > 2.05f) {
+                flameeye.deleteFlameEye();
+                flameeyeDeleteClock.restart();
+            }
 
             //Deletes Asteroid
+            if (astDeleteClock.getElapsedTime().asSeconds() > 20.0f) {
+                asteroid.getObjects().erase(asteroid.getObjects().begin());
+                astDeleteClock.restart();
+            }
 
+            //Deletes rocket (possibly satellite)
+            if (rocketDeleteClock.getElapsedTime().asSeconds() > 40.0f) {
+                rocket.getObjects().erase(rocket.getObjects().begin());
+                rocketDeleteClock.restart();
+                
+            }
 
-            //Deletes Rocket
+            // Deletes Spore
+            if (sporeDeleteClock.getElapsedTime().asSeconds() > 30.0f) {
+                spore.getObjects().erase(spore.getObjects().begin());
+                sporeDeleteClock.restart();
+
+            }
+            
 
 
             scoreDisplay(Play);
@@ -531,6 +572,7 @@ void Game::collision(RenderWindow& Play, Time time) {
         if (Collision::PixelPerfectTest(player.getSprite(), shrinkSprite)) {
             abilityClock.restart();
             player.getSprite().setScale(2.0f, 2.0f);
+            shrink.getObjects().erase(shrink.getObjects().begin());
         }
     }
     if (abilityClock.getElapsedTime().asSeconds() >= 30) {
@@ -579,4 +621,22 @@ void Game:: scoreDisplay(RenderWindow& window) {
     score.setPosition(20, 20); 
 
     window.draw(score);
+}
+
+
+void Game::musicPlayer(string songDir, Music& musicIn) {
+    if (!musicIn.openFromFile(songDir)) 
+    cout << "Error" << endl;
+    musicIn.play();
+    musicIn.setLoop(true);
+
+}
+
+
+void Game::soundPlayer(string soundName, Sound& sound) {
+
+    if (!buffer.loadFromFile(soundName)) 
+        cout << "Unable to open " << soundName << endl;
+    sound.play();
+  
 }

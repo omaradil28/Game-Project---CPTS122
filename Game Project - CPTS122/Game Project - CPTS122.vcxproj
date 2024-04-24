@@ -198,6 +198,7 @@
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="FlameEye.hpp" />
+    <ClInclude Include="Music.hpp" />
     <ClInclude Include="Object.hpp" />
     <ClInclude Include="PA9.hpp" />
     <ClInclude Include="Platform.hpp" />
@@ -205,6 +206,7 @@
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Rockets.hpp" />
     <ClInclude Include="Shower.hpp" />
+    <ClInclude Include="SpriteSound.hpp" />
     <ClInclude Include="Stars.hpp" />
     <ClInclude Include="Textures.hpp" />
     <ClInclude Include="Spore.hpp" />

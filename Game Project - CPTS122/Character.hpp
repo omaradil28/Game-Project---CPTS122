@@ -11,15 +11,16 @@ public:
 	Sprite& getSprite();
 	int getAnimSeq();
 	void setAnimSeq(int animSeqIn);
-	
 	IntRect& getSpriteRect();
 	void setSpriteRect(IntRect spriteRectIn);
+	//SpriteSound charSound;
 
 protected:
 	IntRect spriteRect;
 	int animationSeq;
 	Texture characterTex;
 	Sprite characterSprite;
+
 };
 
 /// Constructor

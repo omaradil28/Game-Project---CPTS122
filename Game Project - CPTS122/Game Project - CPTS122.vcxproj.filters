@@ -71,5 +71,11 @@
     <ClInclude Include="FlameEye.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Music.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteSound.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
