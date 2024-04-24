@@ -196,6 +196,7 @@
     <ClInclude Include="Collision.hpp" />
     <ClInclude Include="Contact.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="Libraries.hpp" />
     <ClInclude Include="Menu.hpp" />
     <ClInclude Include="FlameEye.hpp" />
     <ClInclude Include="Music.hpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="Shower.hpp" />
     <ClInclude Include="SpriteSound.hpp" />
     <ClInclude Include="Stars.hpp" />
+    <ClInclude Include="Test.hpp" />
     <ClInclude Include="Textures.hpp" />
     <ClInclude Include="Spore.hpp" />
   </ItemGroup>
