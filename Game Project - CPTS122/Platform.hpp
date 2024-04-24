@@ -1,5 +1,5 @@
 #pragma once
-#include"Object.hpp"
+#include "Object.hpp"
 
 class Platform : public Object {
 public:
