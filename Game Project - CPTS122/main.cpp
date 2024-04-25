@@ -4,13 +4,13 @@
 
 int main()
 {
-    /*srand(time(0));
+    srand(time(0));
     Game obj;
-    obj.run();*/
+    obj.run();
 
-    Test test;
+    /*Test test;
     test.testAsteroid();
-    test.testPlayer();
+    test.testPlayer();*/
 
     return 0;
 }

@@ -2,6 +2,8 @@
 #include "Asteroid.hpp"
 #include "Player.hpp"
 
+//Emili: This tests the Asteroids Scale and position, and also Player movement
+
 class Test
 {
 	bool isEqual(double first, double second);
@@ -12,7 +14,7 @@ public:
 
 bool Test::isEqual(double first, double second)
 {
-	return abs(first - second) < 0.001;
+	return abs(first - second) < 0.001; //For checking player movement is what it is supposed to be
 }
 
 void Test::testAsteroid()
@@ -25,7 +27,8 @@ void Test::testAsteroid()
 	test.location();
 	Sprite latest = test.objects.back();
 
-	if (abs(latest.getScale().x - 0.4) < 0.001 && abs(latest.getScale().y - 0.4) < 0.001)
+	//Testing Scale of Asteroid
+	if (abs(latest.getScale().x - 0.4) < 0.001 && abs(latest.getScale().y - 0.4) < 0.001) 
 	{
 		cout << "Scale Set Properly" << endl;
 	}
@@ -35,6 +38,7 @@ void Test::testAsteroid()
 		success = false;
 	}
 
+	//Testing Location of Asteroid
 	srand(0);
 	if (rand() % 2 + 1 == 1)
 	{
@@ -75,13 +79,13 @@ void Test::testPlayer()
 	//Test player movement//
 		//Case 1 - Up//
 	auto spriteBefore = test.getSprite();
-	sf::Vector2f SPosition = spriteBefore.getPosition();
+	sf::Vector2f SPosition = spriteBefore.getPosition();  //Postion Before moving
 	cout << SPosition.x << ", " << SPosition.y << endl;
 
-	test.handleMovement(1);
+	test.handleMovement(1); //Movement
 
 	auto spriteAfter = test.getSprite();
-	sf::Vector2f EPosition = spriteAfter.getPosition();
+	sf::Vector2f EPosition = spriteAfter.getPosition(); //Position After moving
 	cout << EPosition.x << ", " << EPosition.y << endl;
 
 	if (isEqual(EPosition.x, SPosition.x) && isEqual(SPosition.y - 1.5, EPosition.y))
