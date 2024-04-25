@@ -14,7 +14,6 @@ public:
 	void setAnimSeq(int animSeqIn);
 	IntRect& getSpriteRect();
 	void setSpriteRect(IntRect spriteRectIn);
-	//SpriteSound charSound;
 
 protected:
 	IntRect spriteRect;
@@ -30,7 +29,7 @@ void Character::call() {
 	setSprite();
 }
 
-//Getter
+//Getters and Setters for Animation.
 Sprite& Character::getSprite() {
 	return characterSprite;
 }

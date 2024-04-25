@@ -7,13 +7,12 @@
 #include"Alien.hpp"
 #include"Platform.hpp" // Object
 #include"FlameEye.hpp"
-//#include"Object.hpp"
+#include"Object.hpp"
 #include"Asteroid.hpp"
 #include"Shower.hpp"
 #include"Spore.hpp"
 #include"Stars.hpp"
 #include"Rockets.hpp"
-//#include"SpriteSound.hpp"
 
 //Moved to Libraries.hpp:
 #define WinWidth VideoMode().getDesktopMode().width // Window Height and Width
@@ -28,8 +27,8 @@ public:
     void collision(RenderWindow&, Time);
     void death(RenderWindow&);
     void scoreDisplay(RenderWindow&);
-    void musicPlayer(string songName, Music& musicIn);
-    void soundPlayer(string soundName, Sound& soundIn);
+    void musicPlayer(string songDir, Music& musicIn, bool looped, int volume);
+    void soundPlayer(string soundName, Sound& sound, SoundBuffer& buffer, bool looped, int volume);
 
     
 private:
@@ -74,7 +73,18 @@ private:
     Text about2;
     Text score;
 
-    SoundBuffer buffer;
+    //Sound and Music variables
+    SoundBuffer buffer1;
+    SoundBuffer buffer2;
+    SoundBuffer buffer3;
+    SoundBuffer buffer4;
+    Sound alienGroan;
+    Sound wind;
+    Sound sporeSound;
+    Sound flameeyeSound;
+    Music jetpack;
+    Music music;
+
 
     //Score Variable
     int scoring;
@@ -116,11 +126,7 @@ void Game::run() {
 
     RenderWindow WINDOW(VideoMode().getDesktopMode(), "Main Menu", Style::Default);
     Menu mainMenu(WINDOW.getSize().x, WINDOW.getSize().y);
-
-    Music music;
-    musicPlayer("Sounds/HEARTLESS.mp3", music);
-    music.setVolume(10);
-
+    musicPlayer("Sounds/HEARTLESS.mp3", music, true, 3);
     
     //Main menu that allows user to traverse between playing, controls, about, and exit using up and down keys. Press return to enter the windows
     while (WINDOW.isOpen()) {
@@ -268,16 +274,15 @@ void Game::runGame(RenderWindow& Play) {
     Clock sporeDeleteClock;
 
     Clock animationClock;
+    Clock alienSoundClock;
 
     //Helps pause game
     bool pause = false;
 
 
     // Jetpack Sound
-    Sound jetpack(buffer);
-    soundPlayer("Sounds/jetpack-thrust.wav", jetpack);
-    jetpack.setLoop(true);
-    jetpack.setVolume(5.0f);
+    // Creates jetpack sound at game start, and plays it.
+    musicPlayer("Sounds/jetpack-thrust.wav", jetpack, true, 2);
 
     while (Play.isOpen()) {
         //Closes game if pressing escape, pauses if pressing P
@@ -311,7 +316,7 @@ void Game::runGame(RenderWindow& Play) {
 
 
             // Player Animation Code. Gets reads from the player movement function, then animates accordingly.
-            if (animationClock.getElapsedTime().asSeconds() > 0.04f) {
+            if (animationClock.getElapsedTime().asSeconds() > 0.05f) {
                 player.animation();
                 flameeye.animation();
                 alien.animation();
@@ -319,7 +324,24 @@ void Game::runGame(RenderWindow& Play) {
                 animationClock.restart();
             }
 
+            // Alien Groaning Sound. Picks random of 4 sounds, and plays it.
+            if (alienSoundClock.getElapsedTime().asSeconds() > 8.0f) {
+                int num = rand() % 4;
 
+                if (num == 0) {
+                    soundPlayer("Sounds/Monster_Groan1.mp3", alienGroan, buffer4, false, 5);
+                }
+                else if (num == 1) {
+                    soundPlayer("Sounds/Monster_Groan1a.mp3", alienGroan, buffer4, false,5);
+                }
+                else if (num == 2) {
+                    soundPlayer("Sounds/Monster_Groan2.mp3", alienGroan, buffer4, false, 5);
+                }
+                else if (num == 4) {
+                    soundPlayer("Sounds/Monster_Groan3.mp3", alienGroan, buffer4, false, 5);
+                }
+                alienSoundClock.restart();
+            }
 
             //Generates platforms every 2 seconds
             platformTime = platformClock.getElapsedTime();
@@ -335,6 +357,7 @@ void Game::runGame(RenderWindow& Play) {
             //Generates platforms every 7 seconds
             sporeTime = sporeClock.getElapsedTime();
             if (sporeTime.asSeconds() >= 15) {
+                soundPlayer("Sounds/SPORE.mp3", sporeSound, buffer1, false, 6);
                 spore.generateSpore();
                 sporeClock.restart();
             }
@@ -348,7 +371,7 @@ void Game::runGame(RenderWindow& Play) {
             rockTime = rockClock.getElapsedTime();
 
             if (rockTime.asSeconds() >= 2) {
-
+                soundPlayer("Sounds/FlameEyeWhistle.mp3", flameeyeSound, buffer2, false, 15);
                 int num = rand() % 3 + 1;
                 if (num == 1) {
                     flameeye.location();
@@ -375,7 +398,7 @@ void Game::runGame(RenderWindow& Play) {
             //Prints the big asteroid every 10 seconds
             astTime = astClock.getElapsedTime();
             if (astTime.asSeconds() >= 10) {
-
+                soundPlayer("Sounds/Wind.mp3", wind, buffer3, false, 100);
                 asteroid.location();
                 astClock.restart();
             }
@@ -452,9 +475,8 @@ void Game::runGame(RenderWindow& Play) {
     
 
 
-
             //Deletes FlameEye
-            if (flameeyeDeleteClock.getElapsedTime().asSeconds() > 3.05f) {
+            if (flameeyeDeleteClock.getElapsedTime().asSeconds() > 2.05f) {
                 flameeye.deleteFlameEye();
                 flameeyeDeleteClock.restart();
             }
@@ -469,7 +491,7 @@ void Game::runGame(RenderWindow& Play) {
             if (rocketDeleteClock.getElapsedTime().asSeconds() > 40.0f) {
                 rocket.getObjects().erase(rocket.getObjects().begin());
                 rocketDeleteClock.restart();
-                
+
             }
 
             // Deletes Spore
@@ -593,8 +615,16 @@ void Game::death(RenderWindow& window) {
     deathText.setFillColor(Color::Red);
     deathText.setPosition(WinWidth / 2 - deathText.getLocalBounds().width / 2, WinHeight / 2 - deathText.getLocalBounds().height / 2);
 
-    window.draw(deathText);
 
+    // Pauses all music and sounds.
+    music.pause();
+    jetpack.pause();
+    alienGroan.pause();
+    flameeyeSound.pause();
+    sporeSound.pause();
+    wind.pause();
+
+    window.draw(deathText);
     window.display();
   
     while (window.isOpen()) {
@@ -625,19 +655,22 @@ void Game:: scoreDisplay(RenderWindow& window) {
 }
 
 
-void Game::musicPlayer(string songDir, Music& musicIn) {
-    if (!musicIn.openFromFile(songDir)) 
-    cout << "Error" << endl;
+// Plays sound using the SFML audio library. It sets volume, whether it loops or not, and plays the audio.
+void Game::musicPlayer(string songDir, Music& musicIn, bool looped, int volume) {
+    if (!musicIn.openFromFile(songDir))
+        cout << "Error" << endl;
+    musicIn.setLoop(looped);
+    musicIn.setVolume(volume);
     musicIn.play();
-    musicIn.setLoop(true);
 
 }
 
-
-void Game::soundPlayer(string soundName, Sound& sound) {
-
-    if (!buffer.loadFromFile(soundName)) 
+// Plays sound using the SFML audio library. It sets volume, whether it loops or not, and plays the audio.
+void Game::soundPlayer(string soundName, Sound& sound, SoundBuffer& buffer, bool looped, int volume) {
+    sound.setBuffer(buffer);
+    if (!buffer.loadFromFile(soundName))
         cout << "Unable to open " << soundName << endl;
+    sound.setLoop(looped);
+    sound.setVolume(volume);
     sound.play();
-  
 }

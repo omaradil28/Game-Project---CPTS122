@@ -8,9 +8,9 @@ int main()
     Game obj;
     obj.run();
 
-    /*Test test;
-    test.testAsteroid();
-    test.testPlayer();*/
+    //Test test;
+    //test.testAsteroid();
+    //test.testPlayer();
 
     return 0;
 }
