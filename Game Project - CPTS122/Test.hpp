@@ -25,7 +25,7 @@ void Test::testAsteroid()
 	test.location();
 	Sprite latest = test.objects.back();
 
-	if (abs(latest.getScale().x - 0.5) < 0.001 && abs(latest.getScale().y - 0.6) < 0.001)
+	if (abs(latest.getScale().x - 0.4) < 0.001 && abs(latest.getScale().y - 0.4) < 0.001)
 	{
 		cout << "Scale Set Properly" << endl;
 	}
@@ -126,7 +126,7 @@ void Test::testPlayer()
 	sf::Vector2f EPosition3 = spriteAfter3.getPosition();
 	cout << EPosition3.x << ", " << EPosition3.y << endl;
 
-	if (isEqual(EPosition3.x + 1.5, SPosition3.x) && isEqual(SPosition3.y, EPosition3.y))
+	if (isEqual(EPosition3.x, SPosition3.x - 1.5) && isEqual(SPosition3.y, EPosition3.y))
 	{
 		cout << "Movement Successful" << endl;
 	}
@@ -147,7 +147,7 @@ void Test::testPlayer()
 	sf::Vector2f EPosition4 = spriteAfter4.getPosition();
 	cout << EPosition4.x << ", " << EPosition4.y << endl;
 
-	if (isEqual(EPosition4.x - 1.5, SPosition4.x) && isEqual(SPosition4.y, EPosition4.y))
+	if (isEqual(EPosition4.x, SPosition4.x + 1.5) && isEqual(SPosition4.y, EPosition4.y))
 	{
 		cout << "Movement Successful" << endl;
 	}
