@@ -70,18 +70,21 @@ void Test::testAsteroid()
 void Test::testPlayer()
 {
 	Player test;
-
 	bool success = true;
 
 	//Test player movement//
-		//Case 1//
-	/*sf::Vector2f startPosition = test.getSprite().getPostition();
+		//Case 1 - Up//
+	auto spriteBefore = test.getSprite();
+	sf::Vector2f SPosition = spriteBefore.getPosition();
+	cout << SPosition.x << ", " << SPosition.y << endl;
 
 	test.handleMovement(1);
 
-	sf::Vector2f endPosition = test.getSprite().getPosition();
+	auto spriteAfter = test.getSprite();
+	sf::Vector2f EPosition = spriteAfter.getPosition();
+	cout << EPosition.x << ", " << EPosition.y << endl;
 
-	if (isEqual(endPosition.x, startPosition.x) && isEqual(startPosition.y - 1.5, endPosition.y))
+	if (isEqual(EPosition.x, SPosition.x) && isEqual(SPosition.y - 1.5, EPosition.y))
 	{
 		cout << "Movement Successful" << endl;
 	}
@@ -89,21 +92,74 @@ void Test::testPlayer()
 	{
 		cout << "Movement Unsuccessful" << endl;
 		success = false;
-	}*/
+	}
 
-		//Case 2//
-	/*sf::Vector2f startPosition = test.getSprite().getPostition();
+		//Case 2 - Down//
+	auto spriteBefore2 = test.getSprite();
+	sf::Vector2f SPosition2 = spriteBefore2.getPosition();
+	cout << SPosition2.x << ", " << SPosition2.y << endl;
 
 	test.handleMovement(2);
 
-	sf::Vector2f endPosition = test.getSprite().getPosition();
+	auto spriteAfter2 = test.getSprite();
+	sf::Vector2f EPosition2 = spriteAfter2.getPosition();
+	cout << EPosition2.x << ", " << EPosition2.y << endl;
 
-	if (isEqual(endPosition.x, startPosition.x) && isEqual(startPosition.y - 1.5, endPosition.y))
+	if (isEqual(EPosition2.x, SPosition2.x) && isEqual(SPosition2.y + 1.5, EPosition2.y))
 	{
 		cout << "Movement Successful" << endl;
 	}
 	else
 	{
 		cout << "Movement Unsuccessful" << endl;
-	}*/
+		success = false;
+	}
+
+		//Case 3 - Left//
+	auto spriteBefore3 = test.getSprite();
+	sf::Vector2f SPosition3 = spriteBefore3.getPosition();
+	cout << SPosition3.x << ", " << SPosition3.y << endl;
+
+	test.handleMovement(3);
+
+	auto spriteAfter3 = test.getSprite();
+	sf::Vector2f EPosition3 = spriteAfter3.getPosition();
+	cout << EPosition3.x << ", " << EPosition3.y << endl;
+
+	if (isEqual(EPosition3.x + 1.5, SPosition3.x) && isEqual(SPosition3.y, EPosition3.y))
+	{
+		cout << "Movement Successful" << endl;
+	}
+	else
+	{
+		cout << "Movement Unsuccessful" << endl;
+		success = false;
+	}
+
+		//Case 4 - Right//
+	auto spriteBefore4 = test.getSprite();
+	sf::Vector2f SPosition4 = spriteBefore4.getPosition();
+	cout << SPosition4.x << ", " << SPosition4.y << endl;
+
+	test.handleMovement(4);
+
+	auto spriteAfter4 = test.getSprite();
+	sf::Vector2f EPosition4 = spriteAfter4.getPosition();
+	cout << EPosition4.x << ", " << EPosition4.y << endl;
+
+	if (isEqual(EPosition4.x - 1.5, SPosition4.x) && isEqual(SPosition4.y, EPosition4.y))
+	{
+		cout << "Movement Successful" << endl;
+	}
+	else
+	{
+		cout << "Movement Unsuccessful" << endl;
+		success = false;
+	}
+
+
+	if (success)
+	{
+		cout << "All Player Tests Pass" << endl;
+	}
 }
