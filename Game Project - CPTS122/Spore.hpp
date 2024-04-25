@@ -41,16 +41,14 @@ void Spore::moveSpore(float speed) {
 
 //Sets scale and position then pushes into vector
 void Spore::generateSpore() {
-    PlaySound("Sounds/SPORE.mp3", true);
     newObj.setTexture(objTex);
     newObj.setScale(15, 15);
     newObj.setPosition(2850.0f, 1100.0f);
     objects.push_back(newObj);
 }
 
+// When called, it will go trough all sprite-sheet frames.
 void Spore::animation() {
-
-
     if (getSpriteRect().left == 96 && getSpriteRect().top == 5) {
         getSpriteRect().left = 0;
         getSpriteRect().top = 37;

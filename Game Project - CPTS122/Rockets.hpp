@@ -8,8 +8,6 @@ public:
     virtual void setSprite();
     virtual void moveRocket(float speed);
     void location();
-
-private:
 };
 
 //Constructor
@@ -18,7 +16,7 @@ Rocket::Rocket() {
 }
 //Sets texture
 void Rocket::loadTexture() {
-    objTex.loadFromFile("textures/rocket.PNG");
+    objTex.loadFromFile("textures/satellite.PNG");
 }
 
 //Sets texture and scale

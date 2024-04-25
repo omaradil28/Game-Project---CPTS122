@@ -14,8 +14,6 @@ public:
 	IntRect& getSpriteRect();
 	vector<Sprite>& getObjects();
 	Sprite& getSprite();
-	Sound sound;
-	void PlaySound(string soundDir, bool looped);
 
 protected:
 	Texture objTex;
@@ -28,7 +26,6 @@ protected:
 	Sprite newObj;
 	Clock deleteClock;
 	sf::Vector2f position;
-	SoundBuffer buffer;
 };
 
 //Constructor
@@ -54,10 +51,3 @@ void Object::setSpriteRect(IntRect rectSpriteIn) {
 	rectSprite = rectSpriteIn;
 }
 
-void Object::PlaySound(string soundDir, bool looped) {
-
-	if (!buffer.loadFromFile(soundDir))
-		cout << "Unable to open " << soundDir << endl;
-	sound.play();
-	sound.setLoop(looped);
-}

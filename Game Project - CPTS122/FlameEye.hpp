@@ -71,6 +71,7 @@ void FlameEye::location() {
     }
 }
 
+// When called, it will go trough all sprite-sheet frames.
 void FlameEye::animation() {
     if (getSpriteRect().left == 192) {
         getSpriteRect().left = 0;
@@ -80,10 +81,10 @@ void FlameEye::animation() {
     }
 } 
 
+// // Deletes FlameEye object
 vector<int>& FlameEye::getSpawnVector() {
     return flameEyeSpawnedNum;
 }
-
 inline void FlameEye::deleteFlameEye() {
     if (flameEyeSpawnedNum.size() > 2) {
         getObjects().erase(getObjects().begin(), getObjects().begin() + flameEyeSpawnedNum.front());
